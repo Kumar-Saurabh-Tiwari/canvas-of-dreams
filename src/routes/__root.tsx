@@ -6,6 +6,7 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  ClientOnly,
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
@@ -82,13 +83,23 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   return (
     <QueryClientProvider client={queryClient}>
-      <SmoothScroll>
+      <ClientOnly fallback={null}>
         <Scene />
-        <SideNav />
-        <main className="relative z-10">
-          <Outlet />
-        </main>
-      </SmoothScroll>
+      </ClientOnly>
+      <SideNav />
+      <ClientOnly
+        fallback={
+          <main className="relative z-10">
+            <Outlet />
+          </main>
+        }
+      >
+        <SmoothScroll>
+          <main className="relative z-10">
+            <Outlet />
+          </main>
+        </SmoothScroll>
+      </ClientOnly>
     </QueryClientProvider>
   );
 }
