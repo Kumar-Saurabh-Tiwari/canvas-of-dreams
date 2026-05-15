@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TextScramble from "../TextScramble";
 import { useSceneStore } from "../scene-store";
+import { Github, Linkedin, ArrowUpRight } from "lucide-react";
 
 if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 
@@ -150,6 +151,21 @@ export default function HeroSection() {
           <p>
             UPTIME: <span className="text-foreground">99.99%</span> · LATENCY: <span className="text-foreground">12ms</span>
           </p>
+          <div className="flex items-center gap-3 pt-3">
+            <a href="https://github.com/Kumar-Saurabh-Tiwari" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
+               className="inline-flex items-center justify-center h-8 w-8 border border-border hover:border-violet-glow hover:text-violet-glow text-foreground transition-colors">
+              <Github size={14} />
+            </a>
+            <a href="https://www.linkedin.com/in/saurabh-tiwari11/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
+               className="inline-flex items-center justify-center h-8 w-8 border border-border hover:border-violet-glow hover:text-violet-glow text-foreground transition-colors">
+              <Linkedin size={14} />
+            </a>
+            <a href="https://saurabh-portfolio-next.vercel.app/" target="_blank" rel="noopener noreferrer"
+               className="group inline-flex items-center gap-2 border border-violet-glow/40 hover:border-violet-glow hover:bg-violet/10 px-3 h-8 text-[10px] tracking-[0.3em] text-foreground transition-colors">
+              <span>KNOW MORE</span>
+              <ArrowUpRight size={12} className="text-violet-glow group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
+          </div>
         </div>
         <div ref={scrollRef} className="flex items-center gap-3 text-foreground">
           <span className="overflow-hidden inline-block">
