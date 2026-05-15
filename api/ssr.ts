@@ -1,3 +1,4 @@
+// @ts-ignore
 import server from "../dist/server/index.js";
 
 export const config = {
