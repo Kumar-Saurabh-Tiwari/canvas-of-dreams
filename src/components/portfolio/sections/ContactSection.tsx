@@ -2,6 +2,7 @@ import TextScramble from "../TextScramble";
 import Reveal from "../Reveal";
 import { useState } from "react";
 import { z } from "zod";
+import { Github, Linkedin, ArrowUpRight, Mail } from "lucide-react";
 
 const schema = z.object({
   name: z.string().trim().min(1, "Required").max(100),
@@ -47,6 +48,24 @@ export default function ContactSection() {
           <div><p className="text-violet-glow mb-2">// PROTOCOL</p><p className="text-foreground leading-relaxed">Drop your details. Expect a reply within 48h — usually faster.</p></div>
           <div><p className="text-violet-glow mb-2">// AVAILABILITY</p><p className="text-foreground">Q3–Q4 2026</p></div>
           <div><p className="text-violet-glow mb-2">// SCOPE</p><p className="text-foreground">FREELANCE / CONTRACT / FULL-TIME</p></div>
+          <div>
+            <p className="text-violet-glow mb-3">// CHANNELS</p>
+            <div className="flex flex-wrap gap-3">
+              <a href="https://github.com/Kumar-Saurabh-Tiwari" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
+                 className="inline-flex items-center justify-center h-10 w-10 border border-border hover:border-violet-glow hover:text-violet-glow text-foreground transition-colors">
+                <Github size={16} />
+              </a>
+              <a href="https://www.linkedin.com/in/saurabh-tiwari11/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
+                 className="inline-flex items-center justify-center h-10 w-10 border border-border hover:border-violet-glow hover:text-violet-glow text-foreground transition-colors">
+                <Linkedin size={16} />
+              </a>
+              <a href="https://saurabh-portfolio-next.vercel.app/" target="_blank" rel="noopener noreferrer"
+                 className="group inline-flex items-center gap-2 border border-violet-glow/40 hover:border-violet-glow hover:bg-violet/10 px-4 h-10 text-[10px] tracking-[0.3em] text-foreground transition-colors">
+                <span>KNOW MORE ABOUT ME</span>
+                <ArrowUpRight size={12} className="text-violet-glow group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </a>
+            </div>
+          </div>
         </Reveal>
         <Reveal delay={0.15} as="div">
           <form onSubmit={onSubmit} className="space-y-8" noValidate>
@@ -74,7 +93,13 @@ export default function ContactSection() {
         </Reveal>
       </div>
       <footer className="mt-32 pt-8 border-t border-border flex flex-col md:flex-row justify-between gap-4 text-[10px] tracking-[0.3em] text-muted-foreground">
-        <p>© 2026 KUMAR SAURABH TIWARI</p><p>END_OF_TRANSMISSION ///</p>
+        <p>© 2026 KUMAR SAURABH TIWARI</p>
+        <div className="flex items-center gap-4">
+          <a href="https://github.com/Kumar-Saurabh-Tiwari" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="hover:text-violet-glow transition-colors"><Github size={12} /></a>
+          <a href="https://www.linkedin.com/in/saurabh-tiwari11/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-violet-glow transition-colors"><Linkedin size={12} /></a>
+          <a href="mailto:hello@saurabh.dev" aria-label="Email" className="hover:text-violet-glow transition-colors"><Mail size={12} /></a>
+        </div>
+        <p>END_OF_TRANSMISSION ///</p>
       </footer>
     </section>
   );
