@@ -13,16 +13,32 @@ export default function SideNav() {
   const [active, setActive] = useState<string>("intro");
 
   useEffect(() => {
-    const sections = items.map((i) => document.getElementById(i.id)).filter(Boolean) as HTMLElement[];
-    if (!sections.length) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id); });
-      },
-      { rootMargin: "-40% 0px -50% 0px", threshold: 0 },
-    );
-    sections.forEach((s) => io.observe(s));
-    return () => io.disconnect();
+    const ids = items.map((i) => i.id);
+    const getSections = () =>
+      ids
+        .map((id) => document.getElementById(id))
+        .filter((el): el is HTMLElement => !!el);
+
+    const compute = () => {
+      const sections = getSections();
+      if (!sections.length) return;
+      const probe = window.innerHeight * 0.35;
+      let current = sections[0].id;
+      for (const s of sections) {
+        const rect = s.getBoundingClientRect();
+        if (rect.top - probe <= 0) current = s.id;
+        else break;
+      }
+      setActive(current);
+    };
+
+    compute();
+    window.addEventListener("scroll", compute, { passive: true });
+    window.addEventListener("resize", compute);
+    return () => {
+      window.removeEventListener("scroll", compute);
+      window.removeEventListener("resize", compute);
+    };
   }, []);
 
   const go = (id: string) => () => {
