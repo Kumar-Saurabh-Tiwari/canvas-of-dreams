@@ -1,7 +1,7 @@
 import server from "../src/server";
 
 export const config = {
-  runtime: "edge",
+  runtime: "nodejs",
 };
 
 export default function handler(request: Request): Promise<Response> | Response {
