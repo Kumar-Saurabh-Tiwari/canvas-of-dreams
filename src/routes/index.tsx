@@ -8,10 +8,10 @@ import ContactSection from "@/components/portfolio/sections/ContactSection";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Kumar Saurabh Tiwari — Full Stack Web Developer" },
-      { name: "description", content: "Engineering the unseen. Full Stack Web Developer building scalable systems with React, Next.js, Node.js." },
-      { property: "og:title", content: "Kumar Saurabh Tiwari — Full Stack Web Developer" },
-      { property: "og:description", content: "A brutalist approach to modern JavaScript." },
+      { title: "Saurav Kumar — Full Stack Web Developer Portfolio" },
+      { name: "description", content: "Portfolio of Saurav Kumar, full stack web developer building scalable systems with React, Next.js, Node.js." },
+      { property: "og:title", content: "Saurav Kumar — Full Stack Web Developer Portfolio" },
+      { property: "og:description", content: "Portfolio of Saurav Kumar, full stack web developer." },
     ],
   }),
   component: Index,

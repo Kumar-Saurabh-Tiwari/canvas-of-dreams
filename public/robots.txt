@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://canvas-of-dreams-rosy.vercel.app/sitemap.xml
