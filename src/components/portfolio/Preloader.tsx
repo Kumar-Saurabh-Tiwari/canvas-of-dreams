@@ -98,16 +98,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
       {/* Greeting center */}
       <div ref={greetRef} className="flex flex-col items-start gap-6">
         <div className="text-[10px] tracking-[0.5em] text-muted-foreground">[ WELCOME ]</div>
-        <div
-          className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-[-0.04em] leading-none text-glow"
-          style={{
-            backgroundImage:
-              "linear-gradient(110deg, oklch(0.7 0.28 305) 0%, oklch(0.96 0.01 290) 50%, oklch(0.55 0.25 305) 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
-          }}
-        >
+        <div className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-[-0.04em] leading-none text-foreground">
           <span className="inline-block overflow-hidden align-bottom">
             {greeting.split("").map((c, i) => (
               <span key={i} className="pre-greet-char inline-block">
