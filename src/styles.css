@@ -37,27 +37,27 @@
 
 :root {
   --radius: 0.25rem;
-  --background: oklch(0.08 0.04 295);
-  --foreground: oklch(0.96 0.01 290);
-  --card: oklch(0.12 0.05 295);
-  --card-foreground: oklch(0.96 0.01 290);
-  --popover: oklch(0.12 0.05 295);
-  --popover-foreground: oklch(0.96 0.01 290);
-  --primary: oklch(0.62 0.22 300);
-  --primary-foreground: oklch(0.08 0.04 295);
-  --secondary: oklch(0.18 0.05 295);
-  --secondary-foreground: oklch(0.96 0.01 290);
-  --muted: oklch(0.16 0.04 295);
-  --muted-foreground: oklch(0.65 0.04 290);
-  --accent: oklch(0.55 0.25 305);
-  --accent-foreground: oklch(0.96 0.01 290);
-  --destructive: oklch(0.6 0.24 25);
+  --background: oklch(0.18 0.05 295);
+  --foreground: oklch(0.97 0.01 290);
+  --card: oklch(0.24 0.06 295);
+  --card-foreground: oklch(0.97 0.01 290);
+  --popover: oklch(0.24 0.06 295);
+  --popover-foreground: oklch(0.97 0.01 290);
+  --primary: oklch(0.7 0.22 300);
+  --primary-foreground: oklch(0.15 0.04 295);
+  --secondary: oklch(0.3 0.06 295);
+  --secondary-foreground: oklch(0.97 0.01 290);
+  --muted: oklch(0.28 0.05 295);
+  --muted-foreground: oklch(0.78 0.04 290);
+  --accent: oklch(0.68 0.24 305);
+  --accent-foreground: oklch(0.15 0.04 295);
+  --destructive: oklch(0.65 0.24 25);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.25 0.06 295 / 50%);
-  --input: oklch(0.25 0.06 295 / 50%);
-  --ring: oklch(0.62 0.22 300);
-  --violet: oklch(0.55 0.25 305);
-  --violet-glow: oklch(0.7 0.28 305);
+  --border: oklch(0.45 0.08 295 / 50%);
+  --input: oklch(0.45 0.08 295 / 50%);
+  --ring: oklch(0.7 0.22 300);
+  --violet: oklch(0.68 0.24 305);
+  --violet-glow: oklch(0.82 0.22 305);
 }
 
 @layer base {
@@ -65,7 +65,7 @@
     border-color: var(--color-border);
   }
   html, body {
-    background: radial-gradient(circle at 50% 50%, #150525 0%, #030008 100%);
+    background: radial-gradient(circle at 50% 30%, #3a1a5c 0%, #1a0a2e 55%, #0e0420 100%);
     color: var(--color-foreground);
     font-family: var(--font-mono);
     -webkit-font-smoothing: antialiased;
