@@ -36,28 +36,28 @@
 }
 
 :root {
-  --radius: 0.25rem;
-  --background: oklch(0.18 0.05 295);
-  --foreground: oklch(0.97 0.01 290);
-  --card: oklch(0.24 0.06 295);
-  --card-foreground: oklch(0.97 0.01 290);
-  --popover: oklch(0.24 0.06 295);
-  --popover-foreground: oklch(0.97 0.01 290);
-  --primary: oklch(0.7 0.22 300);
-  --primary-foreground: oklch(0.15 0.04 295);
-  --secondary: oklch(0.3 0.06 295);
-  --secondary-foreground: oklch(0.97 0.01 290);
-  --muted: oklch(0.28 0.05 295);
-  --muted-foreground: oklch(0.78 0.04 290);
-  --accent: oklch(0.68 0.24 305);
-  --accent-foreground: oklch(0.15 0.04 295);
-  --destructive: oklch(0.65 0.24 25);
+  --radius: 0.35rem;
+  --background: oklch(0.145 0.004 260);
+  --foreground: oklch(0.98 0 0);
+  --card: oklch(0.18 0.005 260);
+  --card-foreground: oklch(0.98 0 0);
+  --popover: oklch(0.18 0.005 260);
+  --popover-foreground: oklch(0.98 0 0);
+  --primary: oklch(0.98 0 0);
+  --primary-foreground: oklch(0.145 0.004 260);
+  --secondary: oklch(0.25 0.005 260);
+  --secondary-foreground: oklch(0.98 0 0);
+  --muted: oklch(0.2 0.005 260);
+  --muted-foreground: oklch(0.65 0.005 260);
+  --accent: oklch(0.25 0.005 260);
+  --accent-foreground: oklch(0.98 0 0);
+  --destructive: oklch(0.5 0.15 25);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.45 0.08 295 / 50%);
-  --input: oklch(0.45 0.08 295 / 50%);
-  --ring: oklch(0.7 0.22 300);
-  --violet: oklch(0.68 0.24 305);
-  --violet-glow: oklch(0.82 0.22 305);
+  --border: oklch(0.25 0.005 260);
+  --input: oklch(0.25 0.005 260);
+  --ring: oklch(0.45 0.005 260);
+  --violet: oklch(0.65 0.1 260);
+  --violet-glow: oklch(0.75 0.1 260);
 }
 
 @layer base {
@@ -65,13 +65,14 @@
     border-color: var(--color-border);
   }
   html, body {
-    background: radial-gradient(circle at 50% 30%, #3a1a5c 0%, #1a0a2e 55%, #0e0420 100%);
+    background: radial-gradient(circle at 50% 0%, #0f172a 0%, #020617 60%, #000000 100%);
     color: var(--color-foreground);
     font-family: var(--font-mono);
+    min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
-  ::selection { background: var(--violet); color: var(--background); }
+  ::selection { background: var(--color-foreground); color: var(--color-background); }
 }
 
 @layer utilities {
