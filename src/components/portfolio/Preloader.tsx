@@ -40,12 +40,12 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
         },
       });
 
-      // Greeting reveal
-      gsap.set(greetRef.current, { opacity: 0, y: 20, filter: "blur(12px)" });
+      // Greeting reveal (no blur — keep text crisp)
+      gsap.set(greetRef.current, { opacity: 0, y: 20 });
       gsap.set(".pre-greet-char", { yPercent: 100, opacity: 0 });
       gsap.set(lineRef.current, { scaleX: 0, transformOrigin: "left" });
 
-      tl.to(greetRef.current, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "power3.out" })
+      tl.to(greetRef.current, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" })
         .to(".pre-greet-char", { yPercent: 0, opacity: 1, duration: 0.7, stagger: 0.04, ease: "expo.out" }, "-=0.3")
         .to(lineRef.current, { scaleX: 1, duration: 0.8, ease: "expo.out" }, "-=0.4");
 
@@ -65,8 +65,8 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
             el.dataset.idx = String(idx);
             gsap.fromTo(
               el,
-              { yPercent: 100, opacity: 0, filter: "blur(6px)" },
-              { yPercent: 0, opacity: 1, filter: "blur(0px)", duration: 0.45, ease: "expo.out" },
+              { yPercent: 100, opacity: 0 },
+              { yPercent: 0, opacity: 1, duration: 0.45, ease: "expo.out" },
             );
             el.textContent = TECH[idx];
           }
