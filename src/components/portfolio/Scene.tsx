@@ -23,16 +23,20 @@ function LiquidSphere() {
   });
 
   return (
-    <Sphere ref={ref} args={[1.4, 128, 128]}>
+    <Sphere ref={ref} args={[1.4, 256, 256]}>
       <MeshDistortMaterial
         ref={matRef}
-        color="#3a0a5c"
-        roughness={0.05}
-        metalness={0.6}
+        color="#ffffff"
+        roughness={0.0}
+        metalness={0.9}
         distort={0.4}
         speed={1.5}
-        emissive="#6b1fb3"
-        emissiveIntensity={0.4}
+        clearcoat={1}
+        clearcoatRoughness={0.0}
+        transmission={0.9}
+        ior={1.5}
+        thickness={1.5}
+        envMapIntensity={2.5}
       />
     </Sphere>
   );
@@ -47,11 +51,11 @@ export default function Scene() {
         gl={{ antialias: true, alpha: true }}
       >
         <Suspense fallback={null}>
-          <ambientLight intensity={0.2} />
-          <pointLight position={[5, 5, 5]} intensity={1.2} color="#a855f7" />
-          <pointLight position={[-5, -3, -2]} intensity={0.8} color="#5b21b6" />
+          <ambientLight intensity={1.5} color="#ffffff" />
+          <directionalLight position={[0, 5, 2]} intensity={2} color="#ffffff" />
+          <pointLight position={[5, 0, -5]} intensity={3} color="#e2e8f0" />
           <LiquidSphere />
-          <Environment preset="night" />
+          <Environment preset="city" />
         </Suspense>
       </Canvas>
     </div>

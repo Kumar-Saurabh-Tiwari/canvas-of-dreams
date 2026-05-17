@@ -3,7 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TextScramble from "../TextScramble";
 import { useSceneStore } from "../scene-store";
-import { Github, Linkedin, ArrowUpRight } from "lucide-react";
+import { Github, Linkedin, ArrowUpRight, Coffee, Atom, Server, FileJson } from "lucide-react";
 
 if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 
@@ -17,6 +17,7 @@ export default function HeroSection() {
   const spotlightRef = useRef<HTMLDivElement>(null);
   const orbsRef = useRef<HTMLDivElement>(null);
   const marqueeRef = useRef<HTMLDivElement>(null);
+  const floatIconsRef = useRef<HTMLDivElement>(null);
   const setIntensity = useSceneStore((s) => s.setIntensity);
 
   // Intro entrance
@@ -45,13 +46,6 @@ export default function HeroSection() {
         });
       });
 
-      // Glitch flicker on headline every ~5s
-      const glitch = gsap.timeline({ repeat: -1, repeatDelay: 4.5, delay: 3 });
-      glitch
-        .to(headlineRef.current, { skewX: 8, x: -4, duration: 0.05 })
-        .to(headlineRef.current, { skewX: -6, x: 6, duration: 0.05 })
-        .to(headlineRef.current, { skewX: 0, x: 0, duration: 0.1 });
-
       // Marquee infinite scroll
       if (marqueeRef.current) {
         gsap.to(marqueeRef.current, { xPercent: -50, duration: 30, ease: "none", repeat: -1 });
@@ -73,7 +67,7 @@ export default function HeroSection() {
           onUpdate: (self) => setIntensity(1 + self.progress * 2.2),
         },
       });
-      tl.to(headlineRef.current, { yPercent: -25, scale: 0.92, filter: "blur(2px)", ease: "none" }, 0)
+      tl.to(headlineRef.current, { yPercent: -25, scale: 0.92, ease: "none" }, 0)
         .to(markerRef.current, { yPercent: -120, opacity: 0, ease: "none" }, 0)
         .to(subRef.current, { yPercent: -60, opacity: 0.2, ease: "none" }, 0)
         .to(metaRef.current, { yPercent: -40, opacity: 0.3, ease: "none" }, 0);
@@ -119,25 +113,30 @@ export default function HeroSection() {
     <section
       ref={sectionRef}
       id="intro"
-      className="relative min-h-screen flex flex-col justify-between px-6 md:px-16 py-24 font-mono overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-between px-6 md:px-16 py-10 font-mono overflow-hidden"
     >
       {/* Cursor spotlight */}
       <div
         ref={spotlightRef}
-        className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] max-w-[600px] max-h-[600px] rounded-full opacity-40 blur-3xl mix-blend-screen"
-        style={{ background: "radial-gradient(circle, oklch(0.82 0.22 305 / 0.5), transparent 65%)", left: 0, top: 0 }}
+        className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] max-w-[600px] max-h-[600px] rounded-full opacity-60 blur-3xl mix-blend-multiply"
+        style={{ background: "radial-gradient(circle, rgba(15, 23, 42, 0.06), transparent 65%)", left: 0, top: 0 }}
         aria-hidden
       />
 
-      {/* Floating orbs */}
-      <div ref={orbsRef} className="pointer-events-none absolute inset-0" aria-hidden>
-        <div className="hero-orb absolute top-[15%] left-[10%] w-32 h-32 rounded-full blur-2xl opacity-40" style={{ background: "radial-gradient(circle, oklch(0.7 0.25 320 / 0.6), transparent 70%)" }} />
-        <div className="hero-orb absolute top-[60%] right-[15%] w-48 h-48 rounded-full blur-3xl opacity-30" style={{ background: "radial-gradient(circle, oklch(0.65 0.22 280 / 0.6), transparent 70%)" }} />
-        <div className="hero-orb absolute bottom-[20%] left-[40%] w-24 h-24 rounded-full blur-2xl opacity-35" style={{ background: "radial-gradient(circle, oklch(0.78 0.2 200 / 0.5), transparent 70%)" }} />
+      {/* Background Image from user */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden>
+        <div 
+          className="absolute inset-0 bg-no-repeat opacity-95 transition-transform duration-1000"
+          style={{ 
+            backgroundImage: "url('/assets/bg-img.png')", 
+            backgroundSize: "contain", /* Changed from cover to contain to prevent scaling up and shifting center */
+            backgroundPosition: "right center",
+          }} 
+        />
       </div>
 
       {/* Decorative grid lines */}
-      <div className="pointer-events-none absolute inset-0 opacity-[0.07]" aria-hidden>
+      <div className="pointer-events-none absolute inset-0 opacity-[0.04]" aria-hidden>
         <div className="absolute inset-y-0 left-1/4 w-px bg-foreground" />
         <div className="absolute inset-y-0 left-1/2 w-px bg-foreground" />
         <div className="absolute inset-y-0 left-3/4 w-px bg-foreground" />
@@ -147,8 +146,8 @@ export default function HeroSection() {
 
       {/* Floating violet halo behind headline */}
       <div
-        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] max-w-[900px] max-h-[900px] rounded-full opacity-30 blur-3xl"
-        style={{ background: "radial-gradient(circle, oklch(0.55 0.30 305 / 0.6), transparent 60%)" }}
+        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] max-w-[900px] max-h-[900px] rounded-full opacity-20 blur-3xl mix-blend-multiply"
+        style={{ background: "radial-gradient(circle, rgba(15, 23, 42, 0.08), transparent 60%)" }}
         aria-hidden
       />
 
@@ -164,21 +163,21 @@ export default function HeroSection() {
         </span>
       </div>
 
-      <div className="relative flex-1 flex flex-col justify-center max-w-6xl">
+      <div className="relative flex-1 flex flex-col justify-center max-w-4xl z-10 pt-20 pointer-events-auto">
         <h1
           ref={headlineRef}
-          className="relative text-5xl md:text-7xl lg:text-[9rem] font-bold leading-[0.92] tracking-[-0.04em] text-glow will-change-transform"
+          className="relative text-4xl md:text-6xl lg:text-[6rem] xl:text-[7rem] font-bold leading-[0.92] tracking-[-0.04em] text-glow will-change-transform"
           style={{ perspective: 1000 }}
         >
-          <span className="block overflow-hidden">
-            <span className="hero-line block">{renderChars("KUMAR SAURABH")}</span>
+          <span className="block overflow-hidden pb-2">
+            <span className="hero-line block text-[#0f172a] drop-shadow-sm">{renderChars("KUMAR SAURABH")}</span>
           </span>
-          <span className="block overflow-hidden">
+          <span className="block overflow-hidden -mt-4 lg:-mt-6">
             <span
-              className="hero-line block"
+              className="hero-line block opacity-20 mix-blend-multiply blur-[1px]"
               style={{
                 backgroundImage:
-                  "linear-gradient(110deg, oklch(0.7 0.28 305) 0%, oklch(0.96 0.01 290) 45%, oklch(0.55 0.25 305) 100%)",
+                  "linear-gradient(110deg, #94a3b8 0%, #cbd5e1 45%, #e2e8f0 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
@@ -189,14 +188,33 @@ export default function HeroSection() {
           </span>
         </h1>
 
-        <p ref={subRef} className="mt-10 text-sm md:text-base tracking-[0.25em] text-muted-foreground max-w-2xl flex items-center gap-3">
-          <span className="inline-block h-px w-8 bg-muted-foreground/60" />
-          <TextScramble as="span" text="FULL STACK WEB DEVELOPER // ENGINEERING THE UNSEEN." duration={2000} />
+        <p ref={subRef} className="mt-8 text-sm md:text-base tracking-[0.25em] text-[#334155] max-w-2xl flex flex-col gap-2 font-medium">
+          <span className="flex items-center gap-3">
+            <span className="inline-block h-px w-8 bg-slate-400" />
+            <TextScramble as="span" text="FULL STACK WEB DEVELOPER //" duration={1500} />
+          </span>
+          <span className="pl-11">
+            <TextScramble as="span" text="ENGINEERING THE UNSEEN" duration={2000} />
+          </span>
         </p>
+
+        {/* Tech Stack Pills from the reference image */}
+        <div className="flex flex-wrap gap-2 md:gap-3 mt-10 md:pl-11 max-w-[90%] md:max-w-2xl">
+          {["MERN STACK", "NEXT.JS", "LLM & AI INTEGRATION", "GCP", "PERFORMANCE TUNING"].map((tech, i) => (
+            <div 
+              key={tech} 
+              className="px-4 py-1.5 rounded-md border border-slate-300 bg-white/70 backdrop-blur-sm text-[10px] tracking-[0.1em] font-semibold text-slate-800 shadow-sm transition-all hover:bg-white hover:-translate-y-0.5"
+              style={{ animation: `fade-in 1s ease-out ${1.5 + i * 0.15}s both` }}
+            >
+              {tech}
+            </div>
+          ))}
+        </div>
       </div>
 
       <div ref={metaRef} className="relative flex flex-col md:flex-row justify-between items-start md:items-end gap-8 text-[10px] tracking-[0.3em] text-muted-foreground">
         <div className="space-y-2">
+          <br />
           <p>LAT 28.6139° N — LON 77.2090° E</p>
           <p>
             STATUS: <span className="text-violet-glow">AVAILABLE_FOR_HIRE</span>
