@@ -40,12 +40,12 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
         },
       });
 
-      // Greeting reveal
-      gsap.set(greetRef.current, { opacity: 0, y: 20, filter: "blur(12px)" });
+      // Greeting reveal (no blur — keep text crisp)
+      gsap.set(greetRef.current, { opacity: 0, y: 20 });
       gsap.set(".pre-greet-char", { yPercent: 100, opacity: 0 });
       gsap.set(lineRef.current, { scaleX: 0, transformOrigin: "left" });
 
-      tl.to(greetRef.current, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "power3.out" })
+      tl.to(greetRef.current, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" })
         .to(".pre-greet-char", { yPercent: 0, opacity: 1, duration: 0.7, stagger: 0.04, ease: "expo.out" }, "-=0.3")
         .to(lineRef.current, { scaleX: 1, duration: 0.8, ease: "expo.out" }, "-=0.4");
 
@@ -65,8 +65,8 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
             el.dataset.idx = String(idx);
             gsap.fromTo(
               el,
-              { yPercent: 100, opacity: 0, filter: "blur(6px)" },
-              { yPercent: 0, opacity: 1, filter: "blur(0px)", duration: 0.45, ease: "expo.out" },
+              { yPercent: 100, opacity: 0 },
+              { yPercent: 0, opacity: 1, duration: 0.45, ease: "expo.out" },
             );
             el.textContent = TECH[idx];
           }
@@ -98,16 +98,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
       {/* Greeting center */}
       <div ref={greetRef} className="flex flex-col items-start gap-6">
         <div className="text-[10px] tracking-[0.5em] text-muted-foreground">[ WELCOME ]</div>
-        <div
-          className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-[-0.04em] leading-none text-glow"
-          style={{
-            backgroundImage:
-              "linear-gradient(110deg, oklch(0.7 0.28 305) 0%, oklch(0.96 0.01 290) 50%, oklch(0.55 0.25 305) 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
-          }}
-        >
+        <div className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-[-0.04em] leading-none text-foreground">
           <span className="inline-block overflow-hidden align-bottom">
             {greeting.split("").map((c, i) => (
               <span key={i} className="pre-greet-char inline-block">
