@@ -14,6 +14,9 @@ export default function HeroSection() {
   const subRef = useRef<HTMLParagraphElement>(null);
   const metaRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const spotlightRef = useRef<HTMLDivElement>(null);
+  const orbsRef = useRef<HTMLDivElement>(null);
+  const marqueeRef = useRef<HTMLDivElement>(null);
   const setIntensity = useSceneStore((s) => s.setIntensity);
 
   // Intro entrance
@@ -28,6 +31,31 @@ export default function HeroSection() {
         .to(".hero-line", { yPercent: 0, opacity: 1, skewY: 0, duration: 1.4, stagger: 0.12 }, "-=0.5")
         .to(".hero-char", { opacity: 1, y: 0, rotateX: 0, duration: 0.6, stagger: { each: 0.018, from: "random" }, ease: "back.out(1.4)" }, "-=1.0")
         .to([subRef.current, metaRef.current, scrollRef.current], { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, stagger: 0.15 }, "-=0.6");
+
+      // Floating orbs continuous drift
+      const orbs = orbsRef.current?.querySelectorAll(".hero-orb");
+      orbs?.forEach((orb, i) => {
+        gsap.to(orb, {
+          x: `+=${30 + i * 10}`,
+          y: `+=${-40 + i * 15}`,
+          duration: 6 + i * 1.4,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+      });
+
+      // Glitch flicker on headline every ~5s
+      const glitch = gsap.timeline({ repeat: -1, repeatDelay: 4.5, delay: 3 });
+      glitch
+        .to(headlineRef.current, { skewX: 8, x: -4, duration: 0.05 })
+        .to(headlineRef.current, { skewX: -6, x: 6, duration: 0.05 })
+        .to(headlineRef.current, { skewX: 0, x: 0, duration: 0.1 });
+
+      // Marquee infinite scroll
+      if (marqueeRef.current) {
+        gsap.to(marqueeRef.current, { xPercent: -50, duration: 30, ease: "none", repeat: -1 });
+      }
     }, sectionRef);
     return () => ctx.revert();
   }, []);
@@ -56,15 +84,25 @@ export default function HeroSection() {
     };
   }, [setIntensity]);
 
-  // Magnetic cursor influence on headline
+  // Magnetic cursor + spotlight follow
   useEffect(() => {
     const el = headlineRef.current;
+    const spot = spotlightRef.current;
     if (!el) return;
     const onMove = (e: MouseEvent) => {
       const r = el.getBoundingClientRect();
       const x = (e.clientX - (r.left + r.width / 2)) / r.width;
       const y = (e.clientY - (r.top + r.height / 2)) / r.height;
       gsap.to(el, { x: x * 18, y: y * 10, rotateX: -y * 4, rotateY: x * 6, duration: 0.8, ease: "power3.out" });
+      if (spot && sectionRef.current) {
+        const sr = sectionRef.current.getBoundingClientRect();
+        gsap.to(spot, {
+          x: e.clientX - sr.left,
+          y: e.clientY - sr.top,
+          duration: 0.6,
+          ease: "power3.out",
+        });
+      }
     };
     window.addEventListener("mousemove", onMove);
     return () => window.removeEventListener("mousemove", onMove);
@@ -83,6 +121,21 @@ export default function HeroSection() {
       id="intro"
       className="relative min-h-screen flex flex-col justify-between px-6 md:px-16 py-24 font-mono overflow-hidden"
     >
+      {/* Cursor spotlight */}
+      <div
+        ref={spotlightRef}
+        className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] max-w-[600px] max-h-[600px] rounded-full opacity-40 blur-3xl mix-blend-screen"
+        style={{ background: "radial-gradient(circle, oklch(0.82 0.22 305 / 0.5), transparent 65%)", left: 0, top: 0 }}
+        aria-hidden
+      />
+
+      {/* Floating orbs */}
+      <div ref={orbsRef} className="pointer-events-none absolute inset-0" aria-hidden>
+        <div className="hero-orb absolute top-[15%] left-[10%] w-32 h-32 rounded-full blur-2xl opacity-40" style={{ background: "radial-gradient(circle, oklch(0.7 0.25 320 / 0.6), transparent 70%)" }} />
+        <div className="hero-orb absolute top-[60%] right-[15%] w-48 h-48 rounded-full blur-3xl opacity-30" style={{ background: "radial-gradient(circle, oklch(0.65 0.22 280 / 0.6), transparent 70%)" }} />
+        <div className="hero-orb absolute bottom-[20%] left-[40%] w-24 h-24 rounded-full blur-2xl opacity-35" style={{ background: "radial-gradient(circle, oklch(0.78 0.2 200 / 0.5), transparent 70%)" }} />
+      </div>
+
       {/* Decorative grid lines */}
       <div className="pointer-events-none absolute inset-0 opacity-[0.07]" aria-hidden>
         <div className="absolute inset-y-0 left-1/4 w-px bg-foreground" />
@@ -172,6 +225,24 @@ export default function HeroSection() {
             <span className="inline-block animate-[grain_3s_ease-in-out_infinite]">SCROLL TO DECRYPT</span>
           </span>
           <span className="inline-block translate-y-0 animate-bounce">↓</span>
+        </div>
+      </div>
+
+      {/* Infinite marquee ribbon */}
+      <div className="relative mt-12 overflow-hidden border-y border-border/40 py-3">
+        <div ref={marqueeRef} className="flex whitespace-nowrap gap-12 text-[11px] tracking-[0.4em] text-muted-foreground will-change-transform">
+          {Array.from({ length: 2 }).map((_, i) => (
+            <div key={i} className="flex gap-12 shrink-0">
+              <span>REACT</span><span className="text-violet-glow">✦</span>
+              <span>NEXT.JS</span><span className="text-violet-glow">✦</span>
+              <span>NODE.JS</span><span className="text-violet-glow">✦</span>
+              <span>TYPESCRIPT</span><span className="text-violet-glow">✦</span>
+              <span>POSTGRES</span><span className="text-violet-glow">✦</span>
+              <span>THREE.JS</span><span className="text-violet-glow">✦</span>
+              <span>GSAP</span><span className="text-violet-glow">✦</span>
+              <span>TAILWIND</span><span className="text-violet-glow">✦</span>
+            </div>
+          ))}
         </div>
       </div>
     </section>
