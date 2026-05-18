@@ -113,7 +113,7 @@ export default function HeroSection() {
     <section
       ref={sectionRef}
       id="intro"
-      className="relative min-h-screen flex flex-col px-6 md:px-16 pt-8 pb-6 font-mono overflow-hidden"
+      className="relative min-h-screen flex flex-col px-6 md:px-16 pt-10 pb-6 font-mono overflow-hidden"
     >
       {/* Cursor spotlight */}
       <div
@@ -126,10 +126,10 @@ export default function HeroSection() {
       {/* Background Image from user */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden>
         <picture>
-          <source media="(max-width: 767px)" srcSet="/assets/bg-img-sm.webp" type="image/webp" />
-          <source srcSet="/assets/bg-img.webp" type="image/webp" />
+          <source media="(max-width: 767px)" srcSet="/assets/bg-img-sm.png" type="image/png" />
+          <source srcSet="/assets/bg-img.png" type="image/png" />
           <img
-            src="/assets/bg-img.webp"
+            src="/assets/bg-img.png"
             alt=""
             loading="eager"
             fetchPriority="high"
