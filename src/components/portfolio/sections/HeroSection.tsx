@@ -140,7 +140,9 @@ export default function HeroSection() {
         </picture>
         {/* Soft gradient overlay for legibility */}
         <div className="absolute inset-0 bg-gradient-to-r from-background/85 via-background/40 to-transparent md:via-background/30" />
-        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background to-transparent" />
+        {/* Header legibility scrim — stronger on mobile, tapered on desktop */}
+        <div className="absolute inset-x-0 top-0 h-40 md:h-56 bg-gradient-to-b from-background via-background/85 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-20 md:h-24 bg-background/70 backdrop-blur-[2px] [mask-image:linear-gradient(to_bottom,black,transparent)]" />
       </div>
 
       {/* Decorative grid lines */}
