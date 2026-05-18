@@ -125,14 +125,22 @@ export default function HeroSection() {
 
       {/* Background Image from user */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden>
-        <div 
-          className="absolute inset-0 bg-no-repeat opacity-95 transition-transform duration-1000"
-          style={{ 
-            backgroundImage: "url('/assets/bg-img.png')", 
-            backgroundSize: "contain", /* Changed from cover to contain to prevent scaling up and shifting center */
-            backgroundPosition: "right center",
-          }} 
-        />
+        <picture>
+          <source media="(max-width: 767px)" srcSet="/assets/bg-img-sm.webp" type="image/webp" />
+          <source srcSet="/assets/bg-img.webp" type="image/webp" />
+          <img
+            src="/assets/bg-img.webp"
+            alt=""
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+            onLoad={(e) => e.currentTarget.classList.add("hero-bg-loaded")}
+            className="hero-bg absolute inset-0 w-full h-full object-cover object-center md:object-right opacity-0 transition-opacity duration-[1400ms] ease-out will-change-[opacity,transform]"
+          />
+        </picture>
+        {/* Soft gradient overlay for legibility */}
+        <div className="absolute inset-0 bg-gradient-to-r from-background/85 via-background/40 to-transparent md:via-background/30" />
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background to-transparent" />
       </div>
 
       {/* Decorative grid lines */}
