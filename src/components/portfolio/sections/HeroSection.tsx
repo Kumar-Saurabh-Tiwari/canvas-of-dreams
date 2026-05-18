@@ -238,7 +238,7 @@ export default function HeroSection() {
             <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </a>
           <a
-            href="https://saurabh-portfolio-next.vercel.app/"
+            href="https://saurabh-portfolio-next.vercel.app/projects"
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-2 border border-border hover:border-foreground px-5 h-10 text-[11px] tracking-[0.25em] font-semibold rounded-md text-foreground transition-colors"
