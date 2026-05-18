@@ -113,7 +113,7 @@ export default function HeroSection() {
     <section
       ref={sectionRef}
       id="intro"
-      className="relative min-h-screen flex flex-col justify-between px-6 md:px-16 py-10 font-mono overflow-hidden"
+      className="relative min-h-screen flex flex-col px-6 md:px-16 pt-8 pb-6 font-mono overflow-hidden"
     >
       {/* Cursor spotlight */}
       <div
@@ -161,9 +161,12 @@ export default function HeroSection() {
         aria-hidden
       />
 
-      <div ref={markerRef} className="relative flex items-center gap-4 text-[10px] tracking-[0.4em] text-muted-foreground">
-        <span className="inline-block h-px w-10 bg-violet-glow" />
-        <span>[ 01 // INTRO ]</span>
+      {/* Top bar: section marker + live status */}
+      <div ref={markerRef} className="relative z-10 flex items-center justify-between gap-4 text-[10px] tracking-[0.4em] text-muted-foreground">
+        <div className="flex items-center gap-3">
+          <span className="inline-block h-px w-10 bg-violet-glow" />
+          <span>[ 01 // INTRO ]</span>
+        </div>
         <span className="inline-flex items-center gap-2">
           <span className="relative inline-flex h-2 w-2">
             <span className="absolute inset-0 rounded-full bg-violet-glow animate-ping opacity-75" />
@@ -173,7 +176,8 @@ export default function HeroSection() {
         </span>
       </div>
 
-      <div className="relative flex-1 flex flex-col justify-center max-w-4xl z-10 pt-20 pointer-events-auto">
+      {/* Main headline block */}
+      <div className="relative flex-1 flex flex-col justify-center max-w-4xl z-10 py-16 md:py-20 pointer-events-auto">
         <h1
           ref={headlineRef}
           className="relative text-4xl md:text-6xl lg:text-[6rem] xl:text-[7rem] font-bold leading-[0.92] tracking-[-0.04em] text-glow will-change-transform"
@@ -198,66 +202,91 @@ export default function HeroSection() {
           </span>
         </h1>
 
+        {/* Subtitle */}
         <p ref={subRef} className="mt-8 text-sm md:text-base tracking-[0.25em] text-[#334155] max-w-2xl flex flex-col gap-2 font-medium">
           <span className="flex items-center gap-3">
             <span className="inline-block h-px w-8 bg-slate-400" />
-            <TextScramble as="span" text="FULL STACK WEB DEVELOPER //" duration={1500} />
+            <TextScramble as="span" text="FULL STACK WEB DEVELOPER" duration={1500} />
           </span>
-          <span className="pl-11">
+          <span className="pl-11 text-muted-foreground">
             <TextScramble as="span" text="ENGINEERING THE UNSEEN" duration={2000} />
           </span>
         </p>
 
-        {/* Tech Stack Pills from the reference image */}
-        <div className="flex flex-wrap gap-2 md:gap-3 mt-10 md:pl-11 max-w-[90%] md:max-w-2xl">
-          {["MERN STACK", "NEXT.JS", "LLM & AI INTEGRATION", "GCP", "PERFORMANCE TUNING"].map((tech, i) => (
-            <div 
-              key={tech} 
-              className="px-4 py-1.5 rounded-md border border-slate-300 bg-white/70 backdrop-blur-sm text-[10px] tracking-[0.1em] font-semibold text-slate-800 shadow-sm transition-all hover:bg-white hover:-translate-y-0.5"
-              style={{ animation: `fade-in 1s ease-out ${1.5 + i * 0.15}s both` }}
+        {/* Tech Stack Pills */}
+        <div className="flex flex-wrap gap-2 mt-8 md:pl-11 max-w-2xl">
+          {["MERN STACK", "NEXT.JS", "LLM & AI", "GCP", "PERFORMANCE"].map((tech, i) => (
+            <div
+              key={tech}
+              className="px-3 py-1.5 rounded-md border border-slate-300 bg-white/70 backdrop-blur-sm text-[10px] tracking-[0.15em] font-semibold text-slate-800 shadow-sm transition-all hover:bg-white hover:-translate-y-0.5"
+              style={{ animation: `fade-in 1s ease-out ${1.5 + i * 0.12}s both` }}
             >
               {tech}
             </div>
           ))}
         </div>
+
+        {/* CTA row */}
+        <div className="flex flex-wrap items-center gap-3 mt-8 md:pl-11">
+          <a
+            href="https://saurabh-portfolio-next.vercel.app/contact"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2 bg-foreground text-background px-5 h-10 text-[11px] tracking-[0.25em] font-semibold rounded-md shadow-sm hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-10px_rgba(15,23,42,0.4)] transition-all"
+          >
+            <span>GET IN TOUCH</span>
+            <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </a>
+          <a
+            href="https://saurabh-portfolio-next.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2 border border-border hover:border-foreground px-5 h-10 text-[11px] tracking-[0.25em] font-semibold rounded-md text-foreground transition-colors"
+          >
+            <span>VIEW WORK</span>
+            <ArrowUpRight size={14} className="text-violet-glow group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </a>
+        </div>
       </div>
 
-      <div ref={metaRef} className="relative flex flex-col md:flex-row justify-between items-start md:items-end gap-8 text-[10px] tracking-[0.3em] text-muted-foreground">
-        <div className="space-y-2">
-          <br />
-          <p>LAT 28.6139° N — LON 77.2090° E</p>
+      {/* Footer meta row */}
+      <div ref={metaRef} className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-[10px] tracking-[0.3em] text-muted-foreground">
+        {/* Location + status */}
+        <div className="space-y-1.5">
+          <p className="text-foreground/60">LOCATION</p>
+          <p>28.6139° N — 77.2090° E</p>
           <p>
-            STATUS: <span className="text-violet-glow">AVAILABLE_FOR_HIRE</span>
+            <span className="text-foreground/60">STATUS // </span>
+            <span className="text-violet-glow">AVAILABLE_FOR_HIRE</span>
           </p>
-          <p>
-            UPTIME: <span className="text-foreground">99.99%</span> · LATENCY: <span className="text-foreground">12ms</span>
-          </p>
-          <div className="flex items-center gap-3 pt-3">
+        </div>
+
+        {/* Socials */}
+        <div className="space-y-2 md:justify-self-center">
+          <p className="text-foreground/60">CONNECT</p>
+          <div className="flex items-center gap-2">
             <a href="https://github.com/Kumar-Saurabh-Tiwari" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
-               className="inline-flex items-center justify-center h-8 w-8 border border-border hover:border-violet-glow hover:text-violet-glow text-foreground transition-colors">
+               className="inline-flex items-center justify-center h-8 w-8 border border-border hover:border-violet-glow hover:text-violet-glow text-foreground transition-colors rounded-sm">
               <Github size={14} />
             </a>
             <a href="https://www.linkedin.com/in/saurabh-tiwari11/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-               className="inline-flex items-center justify-center h-8 w-8 border border-border hover:border-violet-glow hover:text-violet-glow text-foreground transition-colors">
+               className="inline-flex items-center justify-center h-8 w-8 border border-border hover:border-violet-glow hover:text-violet-glow text-foreground transition-colors rounded-sm">
               <Linkedin size={14} />
-            </a>
-            <a href="https://saurabh-portfolio-next.vercel.app/" target="_blank" rel="noopener noreferrer"
-               className="group inline-flex items-center gap-2 border border-violet-glow/40 hover:border-violet-glow hover:bg-violet/10 px-3 h-8 text-[10px] tracking-[0.3em] text-foreground transition-colors">
-              <span>KNOW MORE</span>
-              <ArrowUpRight size={12} className="text-violet-glow group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </a>
           </div>
         </div>
-        <div ref={scrollRef} className="flex items-center gap-3 text-foreground">
+
+        {/* Scroll cue */}
+        <div ref={scrollRef} className="flex md:justify-end items-end gap-3 text-foreground">
           <span className="overflow-hidden inline-block">
             <span className="inline-block animate-[grain_3s_ease-in-out_infinite]">SCROLL TO DECRYPT</span>
           </span>
-          <span className="inline-block translate-y-0 animate-bounce">↓</span>
+          <span className="inline-block animate-bounce">↓</span>
         </div>
       </div>
 
       {/* Infinite marquee ribbon */}
-      <div className="relative mt-12 overflow-hidden border-y border-border/40 py-3">
+      <div className="relative mt-8 overflow-hidden border-y border-border/40 py-3">
         <div ref={marqueeRef} className="flex whitespace-nowrap gap-12 text-[11px] tracking-[0.4em] text-muted-foreground will-change-transform">
           {Array.from({ length: 2 }).map((_, i) => (
             <div key={i} className="flex gap-12 shrink-0">
