@@ -127,9 +127,9 @@ export default function HeroSection() {
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden>
         <picture>
           <source media="(max-width: 767px)" srcSet="/assets/bg-img-sm.png" type="image/png" />
-          <source srcSet="/assets/bg-img.png" type="image/png" />
+          <source srcSet="/assets/bg-img-v2.png" type="image/png" />
           <img
-            src="/assets/bg-img.png"
+            src="/assets/bg-img-v2.png"
             alt=""
             loading="eager"
             fetchPriority="high"

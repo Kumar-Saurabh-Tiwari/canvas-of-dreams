@@ -15,6 +15,7 @@ import SideNav from "@/components/portfolio/SideNav";
 import SmoothScroll from "@/components/portfolio/SmoothScroll";
 
 const siteUrl = "https://canvas-of-dreams-rosy.vercel.app/";
+const ogImageUrl = `${siteUrl}assets/bg-img.png`;
 const personName = "Saurav Kumar";
 const personJsonLd = {
   "@context": "https://schema.org",
@@ -83,8 +84,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Saurav Kumar — Full Stack Web Developer Portfolio" },
       { name: "twitter:description", content: "Portfolio of Saurav Kumar, full stack web developer. React, Next.js, Node.js and modern web systems." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/a9504632-0d59-4ae3-b0ef-9f510132c20e" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/a9504632-0d59-4ae3-b0ef-9f510132c20e" },
+      { property: "og:image", content: ogImageUrl },
+      { property: "og:image:type", content: "image/png" },
+      { property: "og:image:alt", content: "Saurav Kumar portfolio hero artwork" },
+      { name: "twitter:image", content: ogImageUrl },
+      { name: "twitter:image:alt", content: "Saurav Kumar portfolio hero artwork" },
     ],
     links: [
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
