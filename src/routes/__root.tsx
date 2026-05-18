@@ -75,7 +75,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Portfolio of Saurav Kumar, full stack web developer. React, Next.js, Node.js and modern web systems." },
       { name: "author", content: personName },
       { name: "robots", content: "index, follow" },
-      { name: "google-site-verification", content: "17kE8dv7tjXVnENEbHrD597Nl-nQtMZ5YNW3J30-q8I" },
+      { name: "google-site-verification", content: "_8HK3ZhzNftGrRNBt_EuoqXJlcZY9v6cEwM_BlT_tlU" },
       { name: "keywords", content: "Saurab Kumar, Saurav Kumar, Kumar Saurabh Tiwari, portfolio, full stack developer, React, Next.js, Node.js, engineering the unseen" },
       { property: "og:title", content: "Saurab Kumar (Saurav) — Full Stack Web Developer Portfolio" },
       { property: "og:description", content: "Portfolio of Saurab Kumar, full stack web developer. React, Next.js, Node.js and modern web systems." },
