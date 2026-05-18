@@ -1,104 +1,75 @@
 import TextScramble from "../TextScramble";
 import Reveal from "../Reveal";
-import { useState } from "react";
-import { z } from "zod";
 import { Github, Linkedin, ArrowUpRight, Mail } from "lucide-react";
 
-const schema = z.object({
-  name: z.string().trim().min(1, "Required").max(100),
-  email: z.string().trim().email("Invalid email").max(255),
-  subject: z.string().trim().min(1, "Required").max(150),
-  message: z.string().trim().min(10, "Min 10 chars").max(2000),
-});
-
 export default function ContactSection() {
-  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [sent, setSent] = useState(false);
-
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const r = schema.safeParse(form);
-    if (!r.success) {
-      const errs: Record<string, string> = {};
-      r.error.issues.forEach((i) => { errs[i.path[0] as string] = i.message; });
-      setErrors(errs);
-      return;
-    }
-    setErrors({});
-    console.log("[CONTACT_SUBMIT]", r.data);
-    setSent(true);
-    setForm({ name: "", email: "", subject: "", message: "" });
-  };
-
-  const field = (k: keyof typeof form) => ({
-    value: form[k],
-    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-      setForm((f) => ({ ...f, [k]: e.target.value })),
-  });
-
   return (
-    <section id="contact" className="relative min-h-screen px-6 md:px-16 py-32 font-mono">
-      <Reveal><p className="text-[10px] tracking-[0.4em] text-muted-foreground mb-6">[ 04 // CONTACT ]</p></Reveal>
-      <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-16 text-glow max-w-4xl">
+    <section id="contact" className="relative min-h-screen px-6 md:px-16 py-32 font-mono flex flex-col">
+      <Reveal>
+        <p className="text-[10px] tracking-[0.4em] text-muted-foreground mb-6">[ 04 // CONTACT ]</p>
+      </Reveal>
+
+      <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-10 text-glow max-w-4xl">
         <TextScramble as="span" triggerOnView text="OPEN A CHANNEL." duration={1400} />
       </h2>
-      <div className="grid md:grid-cols-[1fr_2fr] gap-16 max-w-6xl">
-        <Reveal as="div" className="space-y-8 text-[11px] tracking-[0.25em] text-muted-foreground">
-          <div><p className="text-violet-glow mb-2">// PROTOCOL</p><p className="text-foreground leading-relaxed">Drop your details. Expect a reply within 48h — usually faster.</p></div>
-          <div><p className="text-violet-glow mb-2">// AVAILABILITY</p><p className="text-foreground">Q3–Q4 2026</p></div>
-          <div><p className="text-violet-glow mb-2">// SCOPE</p><p className="text-foreground">FREELANCE / CONTRACT / FULL-TIME</p></div>
-          <div>
-            <p className="text-violet-glow mb-3">// CHANNELS</p>
-            <div className="flex flex-wrap gap-3">
-              <a href="https://github.com/Kumar-Saurabh-Tiwari" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
-                 className="inline-flex items-center justify-center h-10 w-10 border border-border hover:border-violet-glow hover:text-violet-glow text-foreground transition-colors">
-                <Github size={16} />
-              </a>
-              <a href="https://www.linkedin.com/in/saurabh-tiwari11/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-                 className="inline-flex items-center justify-center h-10 w-10 border border-border hover:border-violet-glow hover:text-violet-glow text-foreground transition-colors">
-                <Linkedin size={16} />
-              </a>
-              <a href="https://saurabh-portfolio-next.vercel.app/" target="_blank" rel="noopener noreferrer"
-                 className="group inline-flex items-center gap-2 border border-violet-glow/40 hover:border-violet-glow hover:bg-violet/10 px-4 h-10 text-[10px] tracking-[0.3em] text-foreground transition-colors">
-                <span>KNOW MORE ABOUT ME</span>
-                <ArrowUpRight size={12} className="text-violet-glow group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </a>
-            </div>
-          </div>
-        </Reveal>
-        <Reveal delay={0.15} as="div">
-          <form onSubmit={onSubmit} className="space-y-8" noValidate>
-            {sent && <div className="border border-violet-glow/50 bg-violet/10 px-4 py-3 text-xs tracking-widest text-violet-glow">[ TRANSMISSION_RECEIVED // I'LL BE IN TOUCH ]</div>}
-            {(["name", "email", "subject"] as const).map((k) => (
-              <div key={k}>
-                <label className="block text-[10px] tracking-[0.3em] text-muted-foreground mb-2">/ {k.toUpperCase()}</label>
-                <input {...field(k)} type={k === "email" ? "email" : "text"} maxLength={k === "subject" ? 150 : k === "email" ? 255 : 100}
-                  className="w-full bg-transparent border-b border-border focus:border-violet-glow outline-none py-3 text-base md:text-lg text-foreground placeholder:text-muted-foreground/40 transition-colors"
-                  placeholder={k === "email" ? "you@domain.com" : k === "name" ? "Your name" : "What's this about"} />
-                {errors[k] && <p className="mt-2 text-[10px] tracking-widest text-destructive">! {errors[k]}</p>}
-              </div>
-            ))}
-            <div>
-              <label className="block text-[10px] tracking-[0.3em] text-muted-foreground mb-2">/ MESSAGE</label>
-              <textarea {...field("message")} rows={5} maxLength={2000}
-                className="w-full bg-transparent border-b border-border focus:border-violet-glow outline-none py-3 text-base text-foreground placeholder:text-muted-foreground/40 resize-none transition-colors"
-                placeholder="Project, scope, timeline…" />
-              {errors.message && <p className="mt-2 text-[10px] tracking-widest text-destructive">! {errors.message}</p>}
-            </div>
-            <button type="submit" className="group inline-flex items-center gap-4 border border-violet-glow/50 hover:border-violet-glow hover:bg-violet/10 px-6 py-4 text-[11px] tracking-[0.3em] text-foreground transition-all">
-              <span>TRANSMIT MESSAGE</span><span className="inline-block group-hover:translate-x-2 transition-transform text-violet-glow">→</span>
-            </button>
-          </form>
-        </Reveal>
-      </div>
-      <footer className="mt-32 pt-8 border-t border-border flex flex-col md:flex-row justify-between gap-4 text-[10px] tracking-[0.3em] text-muted-foreground">
-        <p>© 2026 KUMAR SAURABH TIWARI</p>
-        <div className="flex items-center gap-4">
-          <a href="https://github.com/Kumar-Saurabh-Tiwari" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="hover:text-violet-glow transition-colors"><Github size={12} /></a>
-          <a href="https://www.linkedin.com/in/saurabh-tiwari11/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-violet-glow transition-colors"><Linkedin size={12} /></a>
-          <a href="mailto:hello@saurabh.dev" aria-label="Email" className="hover:text-violet-glow transition-colors"><Mail size={12} /></a>
+
+      <Reveal delay={0.1}>
+        <p className="max-w-2xl text-sm md:text-base tracking-[0.15em] text-muted-foreground leading-relaxed mb-12">
+          Have a project, role, or idea in mind? Let's talk. Replies usually within 48 hours.
+        </p>
+      </Reveal>
+
+      <Reveal delay={0.2}>
+        <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-4">
+          <a
+            href="https://saurabh-portfolio-next.vercel.app/contact"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative inline-flex items-center gap-4 overflow-hidden border border-foreground bg-foreground text-background px-8 py-5 text-[12px] tracking-[0.35em] font-semibold transition-all duration-300 hover:bg-transparent hover:text-foreground hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-10px_rgba(15,23,42,0.4)]"
+          >
+            <span className="relative z-10">GET IN TOUCH</span>
+            <ArrowUpRight
+              size={16}
+              className="relative z-10 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+            />
+          </a>
+
+          <a
+            href="mailto:hello@saurabh.dev"
+            className="group inline-flex items-center gap-3 border border-border hover:border-foreground px-6 py-5 text-[11px] tracking-[0.3em] text-foreground transition-colors"
+          >
+            <Mail size={14} className="text-violet-glow" />
+            <span>EMAIL DIRECTLY</span>
+          </a>
         </div>
+      </Reveal>
+
+      <Reveal delay={0.3}>
+        <div className="mt-16 flex flex-wrap items-center gap-6 text-[10px] tracking-[0.3em] text-muted-foreground">
+          <span className="text-violet-glow">// FIND ME ON</span>
+          <a
+            href="https://github.com/Kumar-Saurabh-Tiwari"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            className="inline-flex items-center gap-2 hover:text-foreground transition-colors"
+          >
+            <Github size={14} /> GITHUB
+          </a>
+          <a
+            href="https://www.linkedin.com/in/saurabh-tiwari11/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            className="inline-flex items-center gap-2 hover:text-foreground transition-colors"
+          >
+            <Linkedin size={14} /> LINKEDIN
+          </a>
+        </div>
+      </Reveal>
+
+      <footer className="mt-auto pt-24 border-t border-border flex flex-col md:flex-row justify-between gap-4 text-[10px] tracking-[0.3em] text-muted-foreground">
+        <p>© 2026 KUMAR SAURABH TIWARI</p>
         <p>END_OF_TRANSMISSION ///</p>
       </footer>
     </section>
