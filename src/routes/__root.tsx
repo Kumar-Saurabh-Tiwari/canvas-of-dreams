@@ -14,7 +14,7 @@ import Scene from "@/components/portfolio/Scene";
 import SideNav from "@/components/portfolio/SideNav";
 import SmoothScroll from "@/components/portfolio/SmoothScroll";
 
-const siteUrl = "https://canvas-of-dreams-rosy.vercel.app/";
+const siteUrl = "https://www.skumar.space/";
 const ogImageUrl = `${siteUrl}assets/bg-img.png`;
 const personName = "Saurav Kumar";
 const personJsonLd = {
