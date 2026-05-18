@@ -22,7 +22,7 @@ export default function ContactSection() {
       <Reveal delay={0.2}>
         <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-4">
           <a
-            href="https://saurabh-portfolio-next.vercel.app/contact"
+            href="https://portfolio.skumar.space/contact"
             target="_blank"
             rel="noopener noreferrer"
             className="group relative inline-flex items-center gap-4 overflow-hidden border border-foreground bg-foreground text-background px-8 py-5 text-[12px] tracking-[0.35em] font-semibold transition-all duration-300 hover:bg-transparent hover:text-foreground hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-10px_rgba(15,23,42,0.4)]"

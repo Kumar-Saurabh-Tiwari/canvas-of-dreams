@@ -229,7 +229,7 @@ export default function HeroSection() {
         {/* CTA row */}
         <div className="flex flex-wrap items-center gap-3 mt-8 md:pl-11">
           <a
-            href="https://saurabh-portfolio-next.vercel.app/contact"
+            href="https://portfolio.skumar.space/contact"
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-2 bg-foreground text-background px-5 h-10 text-[11px] tracking-[0.25em] font-semibold rounded-md shadow-sm hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-10px_rgba(15,23,42,0.4)] transition-all"
@@ -238,7 +238,7 @@ export default function HeroSection() {
             <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </a>
           <a
-            href="https://saurabh-portfolio-next.vercel.app/projects"
+            href="https://portfolio.skumar.space/projects"
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-2 border border-border hover:border-foreground px-5 h-10 text-[11px] tracking-[0.25em] font-semibold rounded-md text-foreground transition-colors"
