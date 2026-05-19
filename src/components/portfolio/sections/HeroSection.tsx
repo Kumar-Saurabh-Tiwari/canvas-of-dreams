@@ -326,10 +326,11 @@ export default function HeroSection() {
             href="https://portfolio.skumar.space/projects"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center justify-center gap-2 border border-border hover:border-foreground px-5 h-10 text-[10px] md:text-[11px] tracking-[0.22em] md:tracking-[0.25em] font-semibold rounded-md text-foreground transition-colors w-full sm:w-auto"
+            className="group relative inline-flex items-center justify-center gap-2 px-5 h-10 text-[10px] md:text-[11px] tracking-[0.22em] md:tracking-[0.25em] font-semibold rounded-md text-foreground bg-white/80 backdrop-blur-md border border-slate-300 shadow-[0_4px_20px_-6px_rgba(15,23,42,0.15)] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-10px_rgba(15,23,42,0.35)] hover:border-foreground transition-all w-full sm:w-auto overflow-hidden animate-[viewwork-pulse_2.4s_ease-in-out_infinite]"
           >
-            <span>VIEW WORK</span>
-            <ArrowUpRight size={14} className="text-violet-glow group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/70 to-transparent animate-[viewwork-shine_2.8s_ease-in-out_infinite]" aria-hidden />
+            <span className="relative">VIEW WORK</span>
+            <ArrowUpRight size={14} className="relative text-violet-glow animate-[viewwork-arrow_2.4s_ease-in-out_infinite] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </a>
         </div>
       </div>
