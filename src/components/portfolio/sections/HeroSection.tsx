@@ -142,9 +142,13 @@ export default function HeroSection() {
     return () => window.removeEventListener("mousemove", onMove);
   }, []);
 
-  const renderChars = (text: string) =>
+  const renderChars = (text: string, charClass = "") =>
     text.split("").map((c, i) => (
-      <span key={i} className="hero-char inline-block" style={{ transformOrigin: "50% 100%" }}>
+      <span
+        key={i}
+        className={`hero-char inline-block ${charClass}`}
+        style={{ transformOrigin: "50% 100%" }}
+      >
         {c === " " ? "\u00A0" : c}
       </span>
     ));
@@ -235,20 +239,22 @@ export default function HeroSection() {
       <div className="relative flex-1 flex flex-col justify-center max-w-4xl z-10 py-12 md:py-20 pointer-events-auto">
         <h1
           ref={headlineRef}
-          className="relative text-3xl sm:text-4xl md:text-6xl lg:text-[6rem] xl:text-[7rem] font-bold leading-[0.96] md:leading-[0.92] tracking-[-0.03em] md:tracking-[-0.04em] text-glow will-change-transform"
+          className="relative text-3xl sm:text-4xl md:text-6xl lg:text-[6rem] xl:text-[7rem] font-bold leading-[0.96] md:leading-[0.92] tracking-[-0.03em] md:tracking-[-0.04em] will-change-transform"
           style={{ perspective: 1000 }}
         >
           <span className="block overflow-hidden pb-2">
-            <span className="hero-line hero-shine block drop-shadow-sm md:hidden">{renderChars("SAURABH KUMAR TIWARI")}</span>
-            <span className="hero-line hero-shine hidden md:block drop-shadow-sm">{renderChars("SAURABH KUMAR")}</span>
+            <span className="hero-line block md:hidden">
+              {renderChars("SAURABH KUMAR TIWARI", "hero-sweep")}
+            </span>
+            <span className="hero-line hidden md:block">
+              {renderChars("SAURABH KUMAR", "hero-sweep")}
+            </span>
           </span>
           <span className="hidden md:block overflow-hidden -mt-2 sm:-mt-3 md:-mt-4 lg:-mt-6">
             <span
-              className="hero-line hero-shine-alt block opacity-100 drop-shadow-md"
-              style={{
-              }}
+              className="hero-line block"
             >
-              {renderChars("TIWARI.")}
+              {renderChars("TIWARI.", "hero-sweep")}
             </span>
           </span>
         </h1>
