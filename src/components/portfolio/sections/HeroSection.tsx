@@ -228,10 +228,10 @@ export default function HeroSection() {
           </span>
           <span className="block overflow-hidden -mt-4 lg:-mt-6">
             <span
-              className="hero-line block opacity-20 mix-blend-multiply blur-[1px]"
+              className="hero-line block opacity-100 drop-shadow-md"
               style={{
                 backgroundImage:
-                  "linear-gradient(110deg, #e2e8f0 0%, #cbd5e1 40%, #94a3b8 60%, #e2e8f0 82%, #f8fafc 100%)",
+                  "linear-gradient(110deg, #1e293b 0%, #475569 40%, #334155 60%, #1e293b 82%, #64748b 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
