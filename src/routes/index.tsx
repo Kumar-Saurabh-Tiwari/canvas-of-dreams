@@ -23,18 +23,17 @@ export const Route = createFileRoute("/")({
 function Index() {
   const [loaded, setLoaded] = useState(false);
   return (
-    <ClientOnly fallback={<div className="min-h-screen bg-background" />}>
-      {!loaded ? (
-        <Preloader onDone={() => setLoaded(true)} />
-      ) : (
-        <>
-          <HeroSection />
-          <AboutSection />
-          <ServicesSection />
-          <WorkSection />
-          <ContactSection />
-        </>
-      )}
-    </ClientOnly>
+    <>
+      {/* SSR-rendered content so crawlers and social previews see the full page */}
+      <HeroSection />
+      <AboutSection />
+      <ServicesSection />
+      <WorkSection />
+      <ContactSection />
+      {/* Preloader as a client-only overlay; does not block SSR content for SEO */}
+      <ClientOnly fallback={null}>
+        {!loaded ? <Preloader onDone={() => setLoaded(true)} /> : null}
+      </ClientOnly>
+    </>
   );
 }
