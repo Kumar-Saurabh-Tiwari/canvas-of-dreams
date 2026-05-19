@@ -165,19 +165,34 @@ export default function HeroSection() {
 
       {/* Background Image from user */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden>
-        <picture>
-          <source media="(max-width: 767px)" srcSet="/assets/bg-img-sm.png" type="image/png" />
-          <source srcSet="/assets/bg-img-v2.png" type="image/png" />
-          <img
-            src="/assets/bg-img-v2.png"
-            alt=""
-            loading="eager"
-            fetchPriority="high"
-            decoding="async"
-            onLoad={(e) => e.currentTarget.classList.add("hero-bg-loaded")}
-            className="hero-bg absolute inset-0 w-full h-full object-cover object-center md:object-right opacity-0 transition-opacity duration-[1400ms] ease-out will-change-[opacity,transform]"
-          />
-        </picture>
+        <div className="hero-bg-layer hero-bg-a absolute inset-0">
+          <picture>
+            <source media="(max-width: 767px)" srcSet="/assets/mobile-bg.png" type="image/png" />
+            <source srcSet="/assets/bg-img.png" type="image/png" />
+            <img
+              src="/assets/bg-img.png"
+              alt=""
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              className="absolute inset-0 w-full h-full object-cover object-center md:object-right"
+            />
+          </picture>
+        </div>
+        <div className="hero-bg-layer hero-bg-b absolute inset-0">
+          <picture>
+            <source media="(max-width: 767px)" srcSet="/assets/bg-img-sm.png" type="image/png" />
+            <source srcSet="/assets/bg-img-v2.png" type="image/png" />
+            <img
+              src="/assets/bg-img-v2.png"
+              alt=""
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              className="absolute inset-0 w-full h-full object-cover object-center md:object-right"
+            />
+          </picture>
+        </div>
         {/* Soft gradient overlay for legibility */}
         <div className="absolute inset-0 bg-gradient-to-r from-background/85 via-background/40 to-transparent md:via-background/30" />
         {/* Header legibility scrim — stronger on mobile, tapered on desktop */}
@@ -202,9 +217,9 @@ export default function HeroSection() {
       />
 
       {/* Top bar: section marker + live status */}
-      <div ref={markerRef} className="relative z-10 flex items-center justify-between gap-4 text-[10px] tracking-[0.4em] text-muted-foreground">
+      <div ref={markerRef} className="relative z-10 flex items-center justify-between gap-4 text-[9px] md:text-[10px] tracking-[0.28em] md:tracking-[0.4em] text-muted-foreground">
         <div className="flex items-center gap-3">
-          <span className="inline-block h-px w-10 bg-violet-glow" />
+          <span className="inline-block h-px w-8 md:w-10 bg-violet-glow" />
           <span>[ 01 // INTRO ]</span>
         </div>
         <span className="inline-flex items-center gap-2">
@@ -217,16 +232,17 @@ export default function HeroSection() {
       </div>
 
       {/* Main headline block */}
-      <div className="relative flex-1 flex flex-col justify-center max-w-4xl z-10 py-16 md:py-20 pointer-events-auto">
+      <div className="relative flex-1 flex flex-col justify-center max-w-4xl z-10 py-12 md:py-20 pointer-events-auto">
         <h1
           ref={headlineRef}
-          className="relative text-4xl md:text-6xl lg:text-[6rem] xl:text-[7rem] font-bold leading-[0.92] tracking-[-0.04em] text-glow will-change-transform"
+          className="relative text-3xl sm:text-4xl md:text-6xl lg:text-[6rem] xl:text-[7rem] font-bold leading-[0.96] md:leading-[0.92] tracking-[-0.03em] md:tracking-[-0.04em] text-glow will-change-transform"
           style={{ perspective: 1000 }}
         >
           <span className="block overflow-hidden pb-2">
-            <span className="hero-line block text-[#0f172a] drop-shadow-sm">{renderChars("KUMAR SAURABH")}</span>
+            <span className="hero-line block text-[#0f172a] drop-shadow-sm md:hidden">{renderChars("SAURABH KUMAR TIWARI")}</span>
+            <span className="hero-line hidden md:block text-[#0f172a] drop-shadow-sm">{renderChars("SAURABH KUMAR")}</span>
           </span>
-          <span className="block overflow-hidden -mt-4 lg:-mt-6">
+          <span className="hidden md:block overflow-hidden -mt-2 sm:-mt-3 md:-mt-4 lg:-mt-6">
             <span
               className="hero-line block opacity-100 drop-shadow-md"
               style={{
@@ -244,7 +260,7 @@ export default function HeroSection() {
 
         {/* Subtitle */}
         <div ref={subRef} className="mt-8 max-w-2xl flex flex-col items-start z-10 w-full">
-          <div className="bg-white/10 backdrop-blur-sm border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.05)] rounded-2xl py-5 px-6 flex flex-col gap-4 text-sm md:text-base tracking-[0.25em] text-[#334155] font-medium transition-colors duration-500 hover:bg-white/20 w-full md:w-auto overflow-hidden">
+          <div className="bg-white/10 backdrop-blur-sm border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.05)] rounded-2xl py-4 md:py-5 px-4 md:px-6 flex flex-col gap-4 text-[12px] md:text-base tracking-[0.18em] md:tracking-[0.25em] text-[#334155] font-medium transition-colors duration-500 hover:bg-white/20 w-full md:w-auto overflow-hidden">
             <span className="flex items-center gap-3 h-[2em]">
               <span className="inline-block h-px w-6 bg-slate-400/80" />
               <span className="relative inline-flex items-center justify-center font-bold">
@@ -255,7 +271,7 @@ export default function HeroSection() {
                   FULL STACK
                 </span>
               </span>
-              <span className="relative inline-block w-[320px] h-[2em] overflow-visible ml-1" style={{ perspective: '800px' }}>
+              <span className="relative inline-block w-[220px] sm:w-[260px] md:w-[320px] h-[2em] overflow-visible ml-1" style={{ perspective: '800px' }}>
                 {[
                   { text: "WEB DEVELOPER", icon: <Atom size={18} className="text-violet-600" /> },
                   { text: "APP DEVELOPER", icon: <FileJson size={18} className="text-emerald-600" /> },
@@ -263,7 +279,7 @@ export default function HeroSection() {
                 ].map((role, i) => (
                   <span
                     key={role.text}
-                    className="role-cycle absolute left-0 top-1/2 flex items-center gap-2.5 text-slate-900 font-bold tracking-[0.2em]"
+                    className="role-cycle absolute left-0 top-1/2 flex items-center gap-2.5 text-slate-900 font-bold tracking-[0.14em] sm:tracking-[0.18em] md:tracking-[0.2em]"
                     style={{ animationDelay: `${i * 3}s` }}
                   >
                     <span className="p-1.5 bg-white/60 rounded-md shadow-sm border border-white/70 backdrop-blur-md">
@@ -274,7 +290,7 @@ export default function HeroSection() {
                 ))}
               </span>
             </span>
-            <span className="pl-11 text-muted-foreground relative inline-block group">
+            <span className="pl-0 md:pl-11 text-muted-foreground relative inline-block group">
               <span className="absolute inset-0 bg-gradient-to-r from-transparent via-violet-glow to-transparent bg-[length:200%_auto] animate-shimmer opacity-0 group-hover:opacity-100 blur-sm mix-blend-screen transition-opacity duration-500" />
               <span className="relative bg-clip-text inline-block hover:text-transparent bg-gradient-to-r from-slate-600 via-slate-900 to-slate-600 hover:bg-[length:200%_auto] hover:animate-shimmer transition-all duration-300 font-bold">
                 <TextScramble key={quoteIdx} as="span" text={QUOTES[quoteIdx]} duration={1200} />
@@ -288,7 +304,7 @@ export default function HeroSection() {
           {activeSkills.map((tech) => (
             <div
               key={tech}
-              className="px-3 py-1.5 rounded-md border border-slate-300 bg-white/70 backdrop-blur-sm text-[10px] tracking-[0.15em] font-semibold text-slate-800 shadow-sm transition-all hover:bg-white hover:-translate-y-0.5 animate-[pill-enter_0.5s_cubic-bezier(0.2,0.8,0.2,1)_forwards]"
+              className="px-2.5 md:px-3 py-1.5 rounded-md border border-slate-300 bg-white/70 backdrop-blur-sm text-[9px] md:text-[10px] tracking-[0.12em] md:tracking-[0.15em] font-semibold text-slate-800 shadow-sm transition-all hover:bg-white hover:-translate-y-0.5 animate-[pill-enter_0.5s_cubic-bezier(0.2,0.8,0.2,1)_forwards]"
             >
               {tech}
             </div>
@@ -296,12 +312,12 @@ export default function HeroSection() {
         </div>
 
         {/* CTA row */}
-        <div className="flex flex-wrap items-center gap-3 mt-8 md:pl-11">
+        <div className="flex flex-wrap items-center gap-3 mt-8 md:pl-11 w-full">
           <a
             href="https://portfolio.skumar.space/contact"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 bg-foreground text-background px-5 h-10 text-[11px] tracking-[0.25em] font-semibold rounded-md shadow-sm hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-10px_rgba(15,23,42,0.4)] transition-all"
+            className="group inline-flex items-center justify-center gap-2 bg-foreground text-background px-5 h-10 text-[10px] md:text-[11px] tracking-[0.22em] md:tracking-[0.25em] font-semibold rounded-md shadow-sm hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-10px_rgba(15,23,42,0.4)] transition-all w-full sm:w-auto"
           >
             <span>GET IN TOUCH</span>
             <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -310,7 +326,7 @@ export default function HeroSection() {
             href="https://portfolio.skumar.space/projects"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 border border-border hover:border-foreground px-5 h-10 text-[11px] tracking-[0.25em] font-semibold rounded-md text-foreground transition-colors"
+            className="group inline-flex items-center justify-center gap-2 border border-border hover:border-foreground px-5 h-10 text-[10px] md:text-[11px] tracking-[0.22em] md:tracking-[0.25em] font-semibold rounded-md text-foreground transition-colors w-full sm:w-auto"
           >
             <span>VIEW WORK</span>
             <ArrowUpRight size={14} className="text-violet-glow group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -319,7 +335,7 @@ export default function HeroSection() {
       </div>
 
       {/* Footer meta row */}
-      <div ref={metaRef} className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-[10px] tracking-[0.3em] text-muted-foreground">
+      <div ref={metaRef} className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-[9px] md:text-[10px] tracking-[0.24em] md:tracking-[0.3em] text-muted-foreground text-center md:text-left">
         {/* Location + status */}
         <div className="space-y-1.5">
           <p className="text-foreground/60">LOCATION</p>
@@ -333,7 +349,7 @@ export default function HeroSection() {
         {/* Socials */}
         <div className="space-y-2 md:justify-self-center">
           <p className="text-foreground/60">CONNECT</p>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 justify-center md:justify-start">
             <a href="https://github.com/Kumar-Saurabh-Tiwari" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
                className="inline-flex items-center justify-center h-8 w-8 border border-border hover:border-violet-glow hover:text-violet-glow text-foreground transition-colors rounded-sm">
               <Github size={14} />
@@ -352,7 +368,7 @@ export default function HeroSection() {
           </div>
           <a
             href="mailto:hello@skumar.space"
-            className="inline-flex items-center gap-2 text-[9px] font-semibold tracking-[0.35em] text-foreground/70 hover:text-foreground transition-colors"
+            className="inline-flex items-center gap-2 text-[8px] md:text-[9px] font-semibold tracking-[0.28em] md:tracking-[0.35em] text-foreground/70 hover:text-foreground transition-colors justify-center md:justify-start"
           >
             <Mail size={12} className="text-violet-glow" />
             <span>HELLO@SKUMAR.SPACE</span>
@@ -360,7 +376,7 @@ export default function HeroSection() {
         </div>
 
         {/* Scroll cue */}
-        <div ref={scrollRef} className="flex md:justify-end items-end gap-3 text-foreground">
+        <div ref={scrollRef} className="flex md:justify-end items-end gap-3 text-foreground justify-center md:justify-end">
           <span className="overflow-hidden inline-block">
             <span className="inline-block animate-[grain_3s_ease-in-out_infinite]">SCROLL TO DECRYPT</span>
           </span>
@@ -370,7 +386,7 @@ export default function HeroSection() {
 
       {/* Infinite marquee ribbon */}
       <div className="relative mt-8 overflow-hidden border-y border-border/40 py-3">
-        <div ref={marqueeRef} className="flex whitespace-nowrap gap-12 text-[11px] tracking-[0.4em] text-muted-foreground will-change-transform">
+        <div ref={marqueeRef} className="flex whitespace-nowrap gap-10 md:gap-12 text-[9px] md:text-[11px] tracking-[0.28em] md:tracking-[0.4em] text-muted-foreground will-change-transform">
           {Array.from({ length: 2 }).map((_, i) => (
             <div key={i} className="flex gap-12 shrink-0">
               <span>REACT</span><span className="text-violet-glow">✦</span>

@@ -157,9 +157,54 @@
     opacity: 0.95;
     animation: hero-bg-in 1.6s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
+  .hero-bg-layer {
+    opacity: 0;
+    animation-duration: 18s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+    will-change: opacity, transform;
+  }
+  .hero-bg-a {
+    animation-name: hero-bg-a;
+    animation-delay: 0s;
+  }
+  .hero-bg-b {
+    animation-name: hero-bg-b;
+    animation-delay: 9s;
+  }
   @keyframes hero-bg-in {
     0% { opacity: 0; transform: scale(1.06); filter: blur(8px); }
     100% { opacity: 0.95; transform: scale(1); filter: blur(0); }
+  }
+  @keyframes hero-bg-a {
+    0% { opacity: 0; transform: scale(1.02); }
+    15% { opacity: 1; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1); }
+    65% { opacity: 0; transform: scale(1.02); }
+    100% { opacity: 0; transform: scale(1.02); }
+  }
+  @keyframes hero-bg-b {
+    0% { opacity: 0; transform: scale(1.02); }
+    15% { opacity: 1; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1); }
+    65% { opacity: 0; transform: scale(1.02); }
+    100% { opacity: 0; transform: scale(1.02); }
+  }
+  @keyframes hero-bg-mobile {
+    0% { opacity: 0.85; transform: scale(1.01); }
+    50% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0.85; transform: scale(1.01); }
+  }
+
+  @media (max-width: 767px) {
+    .hero-bg-b {
+      display: none;
+    }
+    .hero-bg-a {
+      opacity: 1;
+      animation: hero-bg-mobile 8s ease-in-out infinite;
+    }
   }
 }
 

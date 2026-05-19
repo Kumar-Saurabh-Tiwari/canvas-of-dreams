@@ -98,7 +98,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
       {/* Greeting center */}
       <div ref={greetRef} className="flex flex-col items-start gap-6">
         <div className="text-[10px] tracking-[0.5em] text-muted-foreground">[ WELCOME ]</div>
-        <div className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-[-0.04em] leading-none text-foreground">
+        <div className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-[-0.04em] leading-none text-foreground whitespace-nowrap">
           <span className="inline-block overflow-hidden align-bottom">
             {greeting.split("").map((c, i) => (
               <span key={i} className="pre-greet-char inline-block">
