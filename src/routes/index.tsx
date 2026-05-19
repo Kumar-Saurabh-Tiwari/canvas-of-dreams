@@ -11,10 +11,10 @@ import Preloader from "@/components/portfolio/Preloader";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Saurab Kumar — Full Stack Web Developer Portfolio" },
-      { name: "description", content: "Portfolio of Saurab Kumar (Saurav), full stack web developer building scalable systems with React, Next.js, Node.js." },
-      { property: "og:title", content: "Saurab Kumar — Full Stack Web Developer Portfolio" },
-      { property: "og:description", content: "Portfolio of Saurab Kumar, full stack web developer." },
+      { title: "Saurav Kumar Portfolio | skumar.space" },
+      { name: "description", content: "Saurav Kumar portfolio (skumar.space). Full stack web developer building scalable systems with React, Next.js, Node.js." },
+      { property: "og:title", content: "Saurav Kumar Portfolio | skumar.space" },
+      { property: "og:description", content: "Saurav Kumar portfolio (skumar.space). Full stack web developer." },
     ],
   }),
   component: Index,
@@ -23,15 +23,18 @@ export const Route = createFileRoute("/")({
 function Index() {
   const [loaded, setLoaded] = useState(false);
   return (
-    <>
-      <ClientOnly fallback={null}>
-        {!loaded && <Preloader onDone={() => setLoaded(true)} />}
-      </ClientOnly>
-      <HeroSection />
-      <AboutSection />
-      <ServicesSection />
-      <WorkSection />
-      <ContactSection />
-    </>
+    <ClientOnly fallback={<div className="min-h-screen bg-background" />}>
+      {!loaded ? (
+        <Preloader onDone={() => setLoaded(true)} />
+      ) : (
+        <>
+          <HeroSection />
+          <AboutSection />
+          <ServicesSection />
+          <WorkSection />
+          <ContactSection />
+        </>
+      )}
+    </ClientOnly>
   );
 }

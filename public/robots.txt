@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://canvas-of-dreams-rosy.vercel.app/sitemap.xml
+Sitemap: https://www.skumar.space/sitemap.xml

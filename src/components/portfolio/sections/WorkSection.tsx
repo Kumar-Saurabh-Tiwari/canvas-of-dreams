@@ -166,7 +166,7 @@ export default function WorkSection() {
 
         <Reveal delay={0.2}>
           <a
-            href="https://saurabh-portfolio-next.vercel.app/"
+            href="https://portfolio.skumar.space/"
             target="_blank"
             rel="noopener noreferrer"
             className="group mt-16 inline-flex items-center gap-3 border border-violet-glow/40 hover:border-violet-glow hover:bg-violet/10 px-6 py-4 text-[11px] tracking-[0.3em] text-foreground transition-all"

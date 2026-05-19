@@ -22,7 +22,7 @@ export default function ContactSection() {
       <Reveal delay={0.2}>
         <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-4">
           <a
-            href="https://saurabh-portfolio-next.vercel.app/contact"
+            href="https://portfolio.skumar.space/contact"
             target="_blank"
             rel="noopener noreferrer"
             className="group relative inline-flex items-center gap-4 overflow-hidden border border-foreground bg-foreground text-background px-8 py-5 text-[12px] tracking-[0.35em] font-semibold transition-all duration-300 hover:bg-transparent hover:text-foreground hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-10px_rgba(15,23,42,0.4)]"
@@ -35,7 +35,7 @@ export default function ContactSection() {
           </a>
 
           <a
-            href="mailto:hello@saurabh.dev"
+            href="mailto:hello@skumar.space"
             className="group inline-flex items-center gap-3 border border-border hover:border-foreground px-6 py-5 text-[11px] tracking-[0.3em] text-foreground transition-colors"
           >
             <Mail size={14} className="text-violet-glow" />
@@ -70,6 +70,12 @@ export default function ContactSection() {
 
       <footer className="mt-auto pt-24 border-t border-border flex flex-col md:flex-row justify-between gap-4 text-[10px] tracking-[0.3em] text-muted-foreground">
         <p>© 2026 KUMAR SAURABH TIWARI</p>
+        <a
+          href="mailto:hello@skumar.space"
+          className="hover:text-foreground transition-colors"
+        >
+          hello@skumar.space
+        </a>
         <p>END_OF_TRANSMISSION ///</p>
       </footer>
     </section>
