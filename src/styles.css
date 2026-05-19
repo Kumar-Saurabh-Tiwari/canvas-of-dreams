@@ -130,6 +130,50 @@
     50% { transform: translate(2px,-2px); }
   }
 
+  .hero-shine {
+    background-image: linear-gradient(
+      100deg,
+      #0f172a 0%,
+      #0f172a 38%,
+      #7c3aed 48%,
+      #38bdf8 52%,
+      #0f172a 62%,
+      #0f172a 100%
+    );
+    background-size: 250% 100%;
+    background-position: 120% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: hero-shine-sweep 7s cubic-bezier(0.45, 0, 0.2, 1) 1.6s infinite;
+    will-change: background-position;
+  }
+  .hero-shine-alt {
+    background-image: linear-gradient(
+      110deg,
+      #1e293b 0%,
+      #475569 30%,
+      #7c3aed 48%,
+      #38bdf8 52%,
+      #334155 70%,
+      #1e293b 100%
+    );
+    background-size: 250% 100%;
+    background-position: 120% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: hero-shine-sweep 7s cubic-bezier(0.45, 0, 0.2, 1) 2s infinite;
+    will-change: background-position;
+  }
+  @keyframes hero-shine-sweep {
+    0% { background-position: 120% 0; }
+    55% { background-position: -20% 0; }
+    100% { background-position: -20% 0; }
+  }
+
   .role-cycle {
     animation: creative-cycle 9s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
     opacity: 0;
