@@ -35,7 +35,7 @@ export default function ContactSection() {
           </a>
 
           <a
-            href="mailto:hello@saurabh.dev"
+            href="mailto:hello@skumar.space"
             className="group inline-flex items-center gap-3 border border-border hover:border-foreground px-6 py-5 text-[11px] tracking-[0.3em] text-foreground transition-colors"
           >
             <Mail size={14} className="text-violet-glow" />
@@ -70,6 +70,12 @@ export default function ContactSection() {
 
       <footer className="mt-auto pt-24 border-t border-border flex flex-col md:flex-row justify-between gap-4 text-[10px] tracking-[0.3em] text-muted-foreground">
         <p>© 2026 KUMAR SAURABH TIWARI</p>
+        <a
+          href="mailto:hello@skumar.space"
+          className="hover:text-foreground transition-colors"
+        >
+          hello@skumar.space
+        </a>
         <p>END_OF_TRANSMISSION ///</p>
       </footer>
     </section>

@@ -3,7 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TextScramble from "../TextScramble";
 import { useSceneStore } from "../scene-store";
-import { Github, Linkedin, ArrowUpRight, Coffee, Atom, Server, FileJson } from "lucide-react";
+import { Github, Linkedin, ArrowUpRight, Coffee, Atom, Server, FileJson, Mail } from "lucide-react";
 
 if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 
@@ -273,7 +273,21 @@ export default function HeroSection() {
                className="inline-flex items-center justify-center h-8 w-8 border border-border hover:border-violet-glow hover:text-violet-glow text-foreground transition-colors rounded-sm">
               <Linkedin size={14} />
             </a>
+            <a
+              href="mailto:hello@skumar.space"
+              aria-label="Email"
+              className="inline-flex items-center justify-center h-8 w-8 border border-border hover:border-violet-glow hover:text-violet-glow text-foreground transition-colors rounded-sm"
+            >
+              <Mail size={14} />
+            </a>
           </div>
+          <a
+            href="mailto:hello@skumar.space"
+            className="inline-flex items-center gap-2 text-[9px] font-semibold tracking-[0.35em] text-foreground/70 hover:text-foreground transition-colors"
+          >
+            <Mail size={12} className="text-violet-glow" />
+            <span>HELLO@SKUMAR.SPACE</span>
+          </a>
         </div>
 
         {/* Scroll cue */}
