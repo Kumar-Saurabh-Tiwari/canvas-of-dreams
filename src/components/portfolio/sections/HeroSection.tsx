@@ -191,7 +191,7 @@ export default function HeroSection() {
               className="hero-line block opacity-20 mix-blend-multiply blur-[1px]"
               style={{
                 backgroundImage:
-                  "linear-gradient(110deg, #94a3b8 0%, #cbd5e1 45%, #e2e8f0 100%)",
+                  "linear-gradient(110deg, #e2e8f0 0%, #cbd5e1 40%, #94a3b8 60%, #e2e8f0 82%, #f8fafc 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",

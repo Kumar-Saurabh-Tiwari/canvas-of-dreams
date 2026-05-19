@@ -23,15 +23,18 @@ export const Route = createFileRoute("/")({
 function Index() {
   const [loaded, setLoaded] = useState(false);
   return (
-    <>
-      <ClientOnly fallback={null}>
-        {!loaded && <Preloader onDone={() => setLoaded(true)} />}
-      </ClientOnly>
-      <HeroSection />
-      <AboutSection />
-      <ServicesSection />
-      <WorkSection />
-      <ContactSection />
-    </>
+    <ClientOnly fallback={<div className="min-h-screen bg-background" />}>
+      {!loaded ? (
+        <Preloader onDone={() => setLoaded(true)} />
+      ) : (
+        <>
+          <HeroSection />
+          <AboutSection />
+          <ServicesSection />
+          <WorkSection />
+          <ContactSection />
+        </>
+      )}
+    </ClientOnly>
   );
 }
