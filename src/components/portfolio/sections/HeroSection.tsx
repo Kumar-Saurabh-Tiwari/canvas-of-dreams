@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TextScramble from "../TextScramble";
@@ -19,6 +19,46 @@ export default function HeroSection() {
   const marqueeRef = useRef<HTMLDivElement>(null);
   const floatIconsRef = useRef<HTMLDivElement>(null);
   const setIntensity = useSceneStore((s) => s.setIntensity);
+
+  const QUOTES = [
+    "ENGINEERING THE UNSEEN",
+    "ARCHITECTING SCALABLE SYSTEMS",
+    "BUILDING DIGITAL EXPERIENCES",
+    "OPTIMIZING PEAK PERFORMANCE"
+  ];
+  
+  const ALL_SKILLS = [
+    "MERN STACK", "NEXT.JS", "LLM & AI", "GCP", "PERFORMANCE",
+    "TYPESCRIPT", "POSTGRESQL", "DOCKER", "AWS", "PYTHON",
+    "REACT JS", "KUBERNETES", "TAILWIND", "NODE.JS", "SYSTEM DESIGN"
+  ];
+
+  const [quoteIdx, setQuoteIdx] = useState(0);
+  const [activeSkills, setActiveSkills] = useState(ALL_SKILLS.slice(0, 5));
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setQuoteIdx(prev => (prev + 1) % QUOTES.length);
+      setActiveSkills(prev => {
+        let next = [...prev];
+        // Replace 1 item with a new random one
+        const replaceIdx = Math.floor(Math.random() * 5);
+        let candidate = ALL_SKILLS[Math.floor(Math.random() * ALL_SKILLS.length)];
+        while (next.includes(candidate)) {
+          candidate = ALL_SKILLS[Math.floor(Math.random() * ALL_SKILLS.length)];
+        }
+        next[replaceIdx] = candidate;
+        
+        // Shuffle the array to switch positions dynamically
+        for (let i = next.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [next[i], next[j]] = [next[j], next[i]];
+        }
+        return next;
+      });
+    }, 4500);
+    return () => clearInterval(interval);
+  }, []);
 
   // Intro entrance
   useEffect(() => {
@@ -203,23 +243,52 @@ export default function HeroSection() {
         </h1>
 
         {/* Subtitle */}
-        <p ref={subRef} className="mt-8 text-sm md:text-base tracking-[0.25em] text-[#334155] max-w-2xl flex flex-col gap-2 font-medium">
-          <span className="flex items-center gap-3">
-            <span className="inline-block h-px w-8 bg-slate-400" />
-            <TextScramble as="span" text="FULL STACK WEB DEVELOPER" duration={1500} />
-          </span>
-          <span className="pl-11 text-muted-foreground">
-            <TextScramble as="span" text="ENGINEERING THE UNSEEN" duration={2000} />
-          </span>
-        </p>
+        <div ref={subRef} className="mt-8 max-w-2xl flex flex-col items-start z-10 w-full">
+          <div className="bg-white/10 backdrop-blur-sm border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.05)] rounded-2xl py-5 px-6 flex flex-col gap-4 text-sm md:text-base tracking-[0.25em] text-[#334155] font-medium transition-colors duration-500 hover:bg-white/20 w-full md:w-auto overflow-hidden">
+            <span className="flex items-center gap-3 h-[2em]">
+              <span className="inline-block h-px w-6 bg-slate-400/80" />
+              <span className="relative inline-flex items-center justify-center font-bold">
+                {/* Refined, professional cosmic glow */}
+                <span className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-cyan-400 to-indigo-500 bg-[length:200%_auto] animate-shimmer blur-md opacity-25" />
+                {/* Foreground shimmering text */}
+                <span className="relative text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-cyan-500 to-indigo-700 bg-[length:200%_auto] animate-[shimmer_3s_linear_infinite,vibrate_0.4s_linear_infinite] z-10">
+                  FULL STACK
+                </span>
+              </span>
+              <span className="relative inline-block w-[320px] h-[2em] overflow-visible ml-1" style={{ perspective: '800px' }}>
+                {[
+                  { text: "WEB DEVELOPER", icon: <Atom size={18} className="text-violet-600" /> },
+                  { text: "APP DEVELOPER", icon: <FileJson size={18} className="text-emerald-600" /> },
+                  { text: "SOFTWARE ENGINEER", icon: <Server size={18} className="text-blue-600" /> }
+                ].map((role, i) => (
+                  <span
+                    key={role.text}
+                    className="role-cycle absolute left-0 top-1/2 flex items-center gap-2.5 text-slate-900 font-bold tracking-[0.2em]"
+                    style={{ animationDelay: `${i * 3}s` }}
+                  >
+                    <span className="p-1.5 bg-white/60 rounded-md shadow-sm border border-white/70 backdrop-blur-md">
+                      {role.icon}
+                    </span>
+                    {role.text}
+                  </span>
+                ))}
+              </span>
+            </span>
+            <span className="pl-11 text-muted-foreground relative inline-block group">
+              <span className="absolute inset-0 bg-gradient-to-r from-transparent via-violet-glow to-transparent bg-[length:200%_auto] animate-shimmer opacity-0 group-hover:opacity-100 blur-sm mix-blend-screen transition-opacity duration-500" />
+              <span className="relative bg-clip-text inline-block hover:text-transparent bg-gradient-to-r from-slate-600 via-slate-900 to-slate-600 hover:bg-[length:200%_auto] hover:animate-shimmer transition-all duration-300 font-bold">
+                <TextScramble key={quoteIdx} as="span" text={QUOTES[quoteIdx]} duration={1200} />
+              </span>
+            </span>
+          </div>
+        </div>
 
         {/* Tech Stack Pills */}
-        <div className="flex flex-wrap gap-2 mt-8 md:pl-11 max-w-2xl">
-          {["MERN STACK", "NEXT.JS", "LLM & AI", "GCP", "PERFORMANCE"].map((tech, i) => (
+        <div className="flex flex-wrap gap-2 mt-8 md:pl-11 max-w-2xl min-h-[40px] items-center">
+          {activeSkills.map((tech) => (
             <div
               key={tech}
-              className="px-3 py-1.5 rounded-md border border-slate-300 bg-white/70 backdrop-blur-sm text-[10px] tracking-[0.15em] font-semibold text-slate-800 shadow-sm transition-all hover:bg-white hover:-translate-y-0.5"
-              style={{ animation: `fade-in 1s ease-out ${1.5 + i * 0.12}s both` }}
+              className="px-3 py-1.5 rounded-md border border-slate-300 bg-white/70 backdrop-blur-sm text-[10px] tracking-[0.15em] font-semibold text-slate-800 shadow-sm transition-all hover:bg-white hover:-translate-y-0.5 animate-[pill-enter_0.5s_cubic-bezier(0.2,0.8,0.2,1)_forwards]"
             >
               {tech}
             </div>
