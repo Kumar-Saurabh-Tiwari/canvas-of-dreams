@@ -239,18 +239,13 @@ export default function HeroSection() {
           style={{ perspective: 1000 }}
         >
           <span className="block overflow-hidden pb-2">
-            <span className="hero-line block text-[#0f172a] drop-shadow-sm md:hidden">{renderChars("SAURABH KUMAR TIWARI")}</span>
-            <span className="hero-line hidden md:block text-[#0f172a] drop-shadow-sm">{renderChars("SAURABH KUMAR")}</span>
+            <span className="hero-line hero-shine block drop-shadow-sm md:hidden">{renderChars("SAURABH KUMAR TIWARI")}</span>
+            <span className="hero-line hero-shine hidden md:block drop-shadow-sm">{renderChars("SAURABH KUMAR")}</span>
           </span>
           <span className="hidden md:block overflow-hidden -mt-2 sm:-mt-3 md:-mt-4 lg:-mt-6">
             <span
-              className="hero-line block opacity-100 drop-shadow-md"
+              className="hero-line hero-shine-alt block opacity-100 drop-shadow-md"
               style={{
-                backgroundImage:
-                  "linear-gradient(110deg, #1e293b 0%, #475569 40%, #334155 60%, #1e293b 82%, #64748b 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
               }}
             >
               {renderChars("TIWARI.")}
