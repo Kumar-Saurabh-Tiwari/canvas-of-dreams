@@ -28,6 +28,13 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
   const [greeting] = useState(getGreeting());
 
   useEffect(() => {
+    document.body.classList.add("preloader-active");
+    return () => {
+      document.body.classList.remove("preloader-active");
+    };
+  }, []);
+
+  useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         onComplete: () => {

@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import Scene from "@/components/portfolio/Scene";
 import SideNav from "@/components/portfolio/SideNav";
 import SmoothScroll from "@/components/portfolio/SmoothScroll";
+import SkumarAIWidget from "@/components/portfolio/SkumarAIWidget";
 
 const siteUrl = "https://www.skumar.space/";
 const ogImageUrl = `${siteUrl}assets/bg-img.png`;
@@ -135,6 +136,7 @@ function RootComponent() {
           </main>
         </SmoothScroll>
       </ClientOnly>
+      <SkumarAIWidget />
     </QueryClientProvider>
   );
 }

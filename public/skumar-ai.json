@@ -1,0 +1,119 @@
+{
+  "person": {
+    "displayName": "Saurabh Kumar Tiwari",
+    "shortName": "Saurav Kumar",
+    "site": "https://www.skumar.space/",
+    "title": "Full Stack Web Developer",
+    "tagline": "Engineering the unseen. Architecting scalable systems with React, Next.js, and Node.js.",
+    "location": "Madhya Pradesh, India"
+  },
+  "education": [
+    {
+      "institution": "Makhanlal Chaturvedi Rashtriya Patrakarita Evam Sanchar Vishwavidyalaya",
+      "institutionUrl": "https://www.mcu.ac.in",
+      "degree": "BCA",
+      "focus": "Computer Programming",
+      "year": "2021",
+      "summary": "Studied computer programming and completed a full-stack software program (NIIT) covering frontend (HTML, CSS, JavaScript, Angular) and backend (Java, Spring Boot) with SQL/NoSQL databases and Git."
+    }
+  ],
+  "highlights": {
+    "years": "04+",
+    "shipped": "30+",
+    "stack": "FULL",
+    "mode": "DEEP"
+  },
+  "quotes": [
+    "ENGINEERING THE UNSEEN",
+    "ARCHITECTING SCALABLE SYSTEMS",
+    "BUILDING DIGITAL EXPERIENCES",
+    "OPTIMIZING PEAK PERFORMANCE"
+  ],
+  "skills": [
+    "MERN STACK",
+    "NEXT.JS",
+    "LLM & AI",
+    "GCP",
+    "PERFORMANCE",
+    "TYPESCRIPT",
+    "POSTGRESQL",
+    "DOCKER",
+    "AWS",
+    "PYTHON",
+    "REACT JS",
+    "KUBERNETES",
+    "TAILWIND",
+    "NODE.JS",
+    "SYSTEM DESIGN"
+  ],
+  "services": [
+    {
+      "title": "Frontend Development",
+      "summary": "Pixel-tight interfaces in React, Next.js, and TypeScript. Motion, WebGL, and design systems that scale beyond the demo.",
+      "stack": ["REACT", "NEXT.JS", "TYPESCRIPT", "GSAP", "THREE.JS"]
+    },
+    {
+      "title": "Backend Architecture",
+      "summary": "Scalable APIs and data models in Node.js. Postgres, Redis, queues, auth and reliable deployment infrastructure.",
+      "stack": ["NODE.JS", "POSTGRES", "REDIS", "DOCKER", "REST/GRAPHQL"]
+    },
+    {
+      "title": "AI-Driven Workflows",
+      "summary": "LLM pipelines, RAG, agents, and tool-use orchestrations wired into product surfaces.",
+      "stack": ["OPENAI", "LANGCHAIN", "VECTOR DB", "STREAMING", "EVALS"]
+    }
+  ],
+  "projects": [
+    { "title": "Pan Admin Dashboard", "year": "2025", "stack": "NEXT.JS / MONGO / STRIPE" },
+    { "title": "MI-Recall Business Card Vault", "year": "2025", "stack": "REACT / NODE / OPENAI" },
+    { "title": "Curalink AI Health Assistant", "year": "2025", "stack": "REACT / NODE / OPENAI" },
+    { "title": "SK Web Hub - Agency Landing", "year": "2024", "stack": "HTML / CSS / JS" },
+    { "title": "Roamify Tickets - Travel UI", "year": "2024", "stack": "REACT / RESPONSIVE UI" },
+    { "title": "Foodie App - Ordering Platform", "year": "2024", "stack": "ANGULAR / NODE / RAZORPAY" }
+  ],
+  "experience": [
+    {
+      "range": "DEC 2023 - APR 2026",
+      "role": "Full Stack Developer",
+      "company": "CTO Ninja",
+      "summary": "Engineer scalable, high-performance web applications with focus on system architecture, reliability, and user experience."
+    },
+    {
+      "range": "Featured Project",
+      "role": "Full Stack Developer",
+      "company": "PAN Global Network",
+      "summary": "Architected and deployed a production-scale membership platform with role-based access, real-time chat, and external integrations."
+    },
+    {
+      "range": "SEP 2023 - DEC 2023",
+      "role": "Web Developer",
+      "company": "Robofly Technology Pvt Ltd",
+      "summary": "Developed responsive web applications focused on UI/UX implementation and cross-platform compatibility."
+    }
+  ],
+  "contact": {
+    "email": "hello@skumar.space",
+    "github": "https://github.com/Kumar-Saurabh-Tiwari",
+    "linkedin": "https://www.linkedin.com/in/saurabh-tiwari11/",
+    "contactPage": "https://portfolio.skumar.space/contact",
+    "portfolio": "https://portfolio.skumar.space/"
+  },
+  "suggestedQuestions": [
+    "Education",
+    "Location",
+    "End to end delivery",
+    "About Saurabh",
+    "Experience summary",
+    "Recent projects",
+    "Services",
+    "AI workflows",
+    "Tech stack",
+    "Contact",
+    "Availability",
+    "What services does he offer?",
+    "Show recent projects.",
+    "What is his AI experience?",
+    "How can I contact him?",
+    "What tech stack does he use?"
+  ]
+}

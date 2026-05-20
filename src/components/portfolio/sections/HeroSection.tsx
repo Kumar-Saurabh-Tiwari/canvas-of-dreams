@@ -109,8 +109,8 @@ export default function HeroSection() {
       });
       tl.to(headlineRef.current, { yPercent: -25, scale: 0.92, ease: "none" }, 0)
         .to(markerRef.current, { yPercent: -120, opacity: 0, ease: "none" }, 0)
-        .to(subRef.current, { yPercent: -60, opacity: 0.2, ease: "none" }, 0)
-        .to(metaRef.current, { yPercent: -40, opacity: 0.3, ease: "none" }, 0);
+        .to(subRef.current, { yPercent: -60, opacity: 0.65, ease: "none" }, 0)
+        .to(metaRef.current, { yPercent: -40, opacity: 0.7, ease: "none" }, 0);
     }, sectionRef);
     return () => {
       ctx.revert();
