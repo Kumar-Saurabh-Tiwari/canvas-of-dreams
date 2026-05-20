@@ -1,4 +1,18 @@
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
 User-agent: *
 Allow: /
 
+# Sitemaps
 Sitemap: https://www.skumar.space/sitemap.xml
+Sitemap: https://www.skumar.space/sitemap-index.xml
