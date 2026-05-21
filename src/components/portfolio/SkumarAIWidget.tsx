@@ -281,6 +281,7 @@ export default function SkumarAIWidget() {
   const [input, setInput] = useState("");
   const [form, setForm] = useState<ServiceFormState>(emptyForm);
   const [thinking, setThinking] = useState(false);
+  const entryRef = useRef<HTMLDivElement | null>(null);
   const chatEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -333,6 +334,26 @@ export default function SkumarAIWidget() {
     if (!open || activeTab !== "chat") return;
     chatEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages, open, activeTab, thinking]);
+
+  useEffect(() => {
+    const viewport = window.visualViewport;
+    if (!viewport) return;
+
+    const updateOffset = () => {
+      const offset = Math.max(0, window.innerHeight - viewport.height - viewport.offsetTop);
+      entryRef.current?.style.setProperty("--keyboard-offset", `${offset}px`);
+    };
+
+    updateOffset();
+    viewport.addEventListener("resize", updateOffset);
+    viewport.addEventListener("scroll", updateOffset);
+    window.addEventListener("orientationchange", updateOffset);
+    return () => {
+      viewport.removeEventListener("resize", updateOffset);
+      viewport.removeEventListener("scroll", updateOffset);
+      window.removeEventListener("orientationchange", updateOffset);
+    };
+  }, []);
 
   const sendQuestion = async (question: string) => {
     const clean = question.trim();
@@ -387,7 +408,10 @@ export default function SkumarAIWidget() {
   };
 
   return (
-    <div className="fixed bottom-16 right-4 z-[70] flex flex-col items-end gap-3 pointer-events-auto skumar-ai-entry sm:bottom-6 sm:right-6">
+    <div
+      ref={entryRef}
+      className="fixed z-[70] flex flex-col items-end gap-3 pointer-events-auto skumar-ai-entry"
+    >
       {open ? (
         <div className="w-[92vw] max-w-md rounded-2xl border border-border bg-background/95 backdrop-blur-xl shadow-[0_20px_60px_-25px_rgba(15,23,42,0.5)]">
           <div className="flex items-center justify-between border-b border-border px-4 py-3">
