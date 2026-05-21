@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Bot, Send, X, MessageSquare, Wrench } from "lucide-react";
+import { useServerFn } from "@tanstack/react-start";
+import { sendGroqMessage } from "@/lib/groq-chat";
 
 const DATA_URL = "/skumar-ai.json";
 
@@ -28,16 +30,36 @@ type KnowledgeBase = {
   };
   quotes: string[];
   skills: string[];
+  hobbies?: string[];
+  systemSpecifications?: {
+    primaryLaptop?: {
+      processor?: string;
+      ram?: string;
+      storage?: string;
+      graphics?: string;
+      certification?: string;
+    };
+    secondaryPc?: {
+      processor?: string;
+      ram?: string;
+      storage?: string;
+      graphics?: string;
+    };
+    note?: string;
+  };
   services: Array<{ title: string; summary: string; stack: string[] }>;
   projects: Array<{ title: string; year: string; stack: string }>;
   experience: Array<{ range: string; role: string; company: string; summary: string }>;
   contact: {
     email: string;
+    mobile?: string;
     github: string;
     linkedin: string;
+    twitter?: string;
     contactPage: string;
     portfolio: string;
   };
+  personalNotes?: string[];
   suggestedQuestions: string[];
 };
 
@@ -74,6 +96,9 @@ function buildAnswer(question: string, kb: KnowledgeBase | null) {
   const q = question.toLowerCase();
   const tokens = q.replace(/[^a-z0-9\s]/g, " ").split(/\s+/).filter(Boolean);
   const education = kb.education?.[0];
+  const specs = kb.systemSpecifications;
+  const primary = specs?.primaryLaptop;
+  const secondary = specs?.secondaryPc;
 
   const intents: Array<{ key: string; terms: string[]; reply: () => string }> = [
     {
@@ -82,10 +107,46 @@ function buildAnswer(question: string, kb: KnowledgeBase | null) {
       reply: () => [
         `Contact ${kb.person.displayName}:`,
         `Email: ${kb.contact.email}`,
+        kb.contact.mobile ? `Mobile: ${kb.contact.mobile}` : null,
         `GitHub: ${kb.contact.github}`,
         `LinkedIn: ${kb.contact.linkedin}`,
+        kb.contact.twitter ? `Twitter: ${kb.contact.twitter}` : null,
         `Contact page: ${kb.contact.contactPage}`,
       ].join("\n"),
+    },
+    {
+      key: "specs",
+      terms: ["spec", "specs", "pc", "laptop", "system", "hardware", "machine", "setup"],
+      reply: () => {
+        if (!specs) return "System specs are not listed yet.";
+        const lines = ["System specs:"];
+        if (primary) {
+          lines.push(
+            `Primary laptop: ${primary.processor ?? ""} | ${primary.ram ?? ""} | ${primary.storage ?? ""} | ${primary.graphics ?? ""}`.trim(),
+          );
+          if (primary.certification) lines.push(`Certification: ${primary.certification}`);
+        }
+        if (secondary) {
+          lines.push(
+            `Secondary PC: ${secondary.processor ?? ""} | ${secondary.ram ?? ""} | ${secondary.storage ?? ""} | ${secondary.graphics ?? ""}`.trim(),
+          );
+        }
+        if (specs.note) lines.push(specs.note);
+        return lines.filter(Boolean).join("\n");
+      },
+    },
+    {
+      key: "hobbies",
+      terms: ["hobby", "hobbies", "interests", "games", "gaming", "cricket", "fitness", "gym"],
+      reply: () => {
+        if (!kb.hobbies?.length) return "Hobbies are not listed yet.";
+        return `Hobbies: ${kb.hobbies.join(", ")}`;
+      },
+    },
+    {
+      key: "family",
+      terms: ["family", "support", "personal"],
+      reply: () => kb.personalNotes?.[0] ?? "Personal notes are not listed yet.",
     },
     {
       key: "services",
@@ -181,7 +242,35 @@ function buildAnswer(question: string, kb: KnowledgeBase | null) {
   ].join("\n");
 }
 
+function buildProfileSummary(kb: KnowledgeBase | null) {
+  if (!kb) return "";
+  const lines = [
+    `${kb.person.displayName} - ${kb.person.title}.`,
+    kb.person.tagline,
+    `Location: ${kb.person.location ?? "India"}.`,
+    `Highlights: ${kb.highlights.years} years, ${kb.highlights.shipped} shipped, stack ${kb.highlights.stack}.`,
+    `Skills: ${formatList(kb.skills, 12)}.`,
+    kb.hobbies?.length ? `Hobbies: ${kb.hobbies.join(", ")}.` : "",
+    `Services: ${kb.services.map((s) => s.title).join(", ")}.`,
+    `Projects: ${kb.projects.slice(0, 5).map((p) => p.title).join(", ")}.`,
+    `Contact: ${kb.contact.email} | ${kb.contact.github} | ${kb.contact.linkedin}.`,
+    kb.contact.mobile ? `Mobile: ${kb.contact.mobile}.` : "",
+    kb.contact.twitter ? `Twitter: ${kb.contact.twitter}.` : "",
+    kb.systemSpecifications?.primaryLaptop
+      ? `Primary laptop: ${kb.systemSpecifications.primaryLaptop.processor ?? ""}, ${kb.systemSpecifications.primaryLaptop.ram ?? ""}, ${kb.systemSpecifications.primaryLaptop.storage ?? ""}, ${kb.systemSpecifications.primaryLaptop.graphics ?? ""}.`
+      : "",
+    kb.systemSpecifications?.secondaryPc
+      ? `Secondary PC: ${kb.systemSpecifications.secondaryPc.processor ?? ""}, ${kb.systemSpecifications.secondaryPc.ram ?? ""}, ${kb.systemSpecifications.secondaryPc.storage ?? ""}, ${kb.systemSpecifications.secondaryPc.graphics ?? ""}.`
+      : "",
+    kb.systemSpecifications?.note ?? "",
+    kb.personalNotes?.[0] ?? "",
+  ].filter(Boolean);
+
+  return lines.join("\n");
+}
+
 export default function SkumarAIWidget() {
+  const sendGroq = useServerFn(sendGroqMessage);
   const [open, setOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"chat" | "service">("chat");
   const [loading, setLoading] = useState(true);
@@ -245,16 +334,24 @@ export default function SkumarAIWidget() {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages, open, activeTab, thinking]);
 
-  const sendQuestion = (question: string) => {
+  const sendQuestion = async (question: string) => {
     const clean = question.trim();
     if (!clean) return;
     setThinking(true);
     setMessages((prev) => [...prev, { role: "user", content: clean }]);
-    window.setTimeout(() => {
+
+    try {
+      const profile = buildProfileSummary(knowledge);
+      const history = messages.slice(-6);
+      const result = await sendGroq({ data: { message: clean, history, profile } });
+      const reply = result.reply?.trim() || buildAnswer(clean, knowledge);
+      setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
+    } catch (error) {
       const reply = buildAnswer(clean, knowledge);
       setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
+    } finally {
       setThinking(false);
-    }, 550);
+    }
   };
 
   const onSubmit = (event: React.FormEvent) => {
@@ -262,12 +359,12 @@ export default function SkumarAIWidget() {
     if (!input.trim()) return;
     const question = input.trim();
     setInput("");
-    sendQuestion(question);
+    void sendQuestion(question);
   };
 
   const onSendSuggestion = (text: string) => {
     setInput("");
-    sendQuestion(text);
+    void sendQuestion(text);
   };
 
   const onSubmitService = (event: React.FormEvent) => {
@@ -290,7 +387,7 @@ export default function SkumarAIWidget() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[70] flex flex-col items-end gap-3 pointer-events-auto skumar-ai-entry">
+    <div className="fixed bottom-16 right-4 z-[70] flex flex-col items-end gap-3 pointer-events-auto skumar-ai-entry sm:bottom-6 sm:right-6">
       {open ? (
         <div className="w-[92vw] max-w-md rounded-2xl border border-border bg-background/95 backdrop-blur-xl shadow-[0_20px_60px_-25px_rgba(15,23,42,0.5)]">
           <div className="flex items-center justify-between border-b border-border px-4 py-3">
@@ -298,9 +395,12 @@ export default function SkumarAIWidget() {
               <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-foreground text-background">
                 <Bot size={18} />
               </span>
-              <div>
-                <p className="text-xs tracking-[0.3em] text-muted-foreground">SKUMAR AI</p>
-                <p className="text-sm text-foreground">Portfolio assistant</p>
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-xs tracking-[0.3em] text-muted-foreground">SKUMAR AI</p>
+                  <p className="text-xs text-foreground">Portfolio assistant</p>
+                </div>
+                <p className="text-[10px] tracking-[0.18em] text-sky-400">POWERED BY GROQ AI</p>
               </div>
             </div>
             <button

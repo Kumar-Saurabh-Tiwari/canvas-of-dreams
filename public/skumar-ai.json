@@ -44,8 +44,56 @@
     "KUBERNETES",
     "TAILWIND",
     "NODE.JS",
-    "SYSTEM DESIGN"
+    "SYSTEM DESIGN",
+    "SPRING BOOT",
+    "JAVA",
+    "JDBC",
+    "GENERATIVE AI",
+    "HTML",
+    "SCSS",
+    "CSS",
+    "BOOTSTRAP",
+    "OCR",
+    "BACKEND DEPLOYMENT",
+    "FRONTEND DEPLOYMENT",
+    "SEO",
+    "DOMAIN INTEGRATION",
+    "AWS NOSQL DEPLOYMENT",
+    "FIREBASE",
+    "PWA APPS",
+    "OFFLINE WEB APPS",
+    "UI DESIGN",
+    "DYNAMIC WEBSITES",
+    "CHAT WEBSITES",
+    "ECOMMERCE WEBSITES",
+    "PAYMENT INTEGRATION",
+    "PAYPAL",
+    "RAZORPAY",
+    "REACT NATIVE",
+    "EXPO"
   ],
+  "hobbies": [
+    "Playing cricket",
+    "Mobile games",
+    "PC games (story mode)",
+    "Fitness and gym"
+  ],
+  "systemSpecifications": {
+    "primaryLaptop": {
+      "processor": "Intel Core Ultra 5 225H",
+      "ram": "24 GB (8533 MT/s)",
+      "storage": "1 TB SSD",
+      "graphics": "Intel Arc 130T GPU",
+      "certification": "Intel Evo"
+    },
+    "secondaryPc": {
+      "processor": "Intel Core i5-12400",
+      "ram": "16 GB",
+      "storage": "1 TB SSD",
+      "graphics": "NVIDIA RTX 3050"
+    },
+    "note": "Backup system for reliability and productivity."
+  },
   "services": [
     {
       "title": "Frontend Development",
@@ -93,11 +141,16 @@
   ],
   "contact": {
     "email": "hello@skumar.space",
+    "mobile": "7440805377",
     "github": "https://github.com/Kumar-Saurabh-Tiwari",
     "linkedin": "https://www.linkedin.com/in/saurabh-tiwari11/",
+    "twitter": "https://x.com/SaurabhKumar_11",
     "contactPage": "https://portfolio.skumar.space/contact",
     "portfolio": "https://portfolio.skumar.space/"
   },
+  "personalNotes": [
+    "Lives with family and feels supported."
+  ],
   "suggestedQuestions": [
     "Education",
     "Location",
