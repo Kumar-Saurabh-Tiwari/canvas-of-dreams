@@ -610,12 +610,12 @@ export default function SkumarAIWidget() {
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className="flex items-center gap-3 rounded-full border border-foreground bg-foreground px-3 py-2 text-xs tracking-[0.3em] text-background shadow-[0_14px_40px_-18px_rgba(15,23,42,0.45)] hover:-translate-y-0.5 transition skumar-ai-button"
+        className="flex items-center gap-3 rounded-full border border-foreground bg-foreground px-2 py-1 text-xs tracking-[0.3em] text-background shadow-[0_14px_40px_-18px_rgba(15,23,42,0.45)] hover:-translate-y-0.5 transition skumar-ai-button"
         aria-label="Open Skumar AI"
       >
         {/* <MessageSquare size={16} /> */}
         <span className="skumar-ai-icon">
-              <img src="/assets/artificial-intelligence.gif" alt="" />
+              <img src="/assets/sk%20Image.jpg" alt="" />
         </span>
         <span>
           <span className="skumar-ai-label">Skumar</span> <span className="skumar-ai-accent">AI</span>

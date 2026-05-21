@@ -17,7 +17,7 @@ import SkumarAIWidget from "@/components/portfolio/SkumarAIWidget";
 
 const siteUrl = "https://www.skumar.space/";
 const ogImageUrl = `${siteUrl}assets/bg-img.png`;
-const personName = "Saurav Kumar";
+const personName = "Saurabh Kumar";
 const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -72,27 +72,27 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Saurav Kumar Portfolio | skumar.space" },
-      { name: "description", content: "Saurav Kumar portfolio (skumar.space) — full stack web developer specializing in React, Next.js, Node.js, and modern web systems." },
+      { title: "Saurabh Kumar Portfolio | skumar.space" },
+      { name: "description", content: "Saurabh Kumar portfolio (skumar.space). Full stack web developer building fast, reliable web apps with React, Angular, Next.js, Node.js, and AI integrations." },
       { name: "author", content: personName },
       { name: "robots", content: "index, follow" },
       { name: "google-site-verification", content: "_8HK3ZhzNftGrRNBt_EuoqXJlcZY9v6cEwM_BlT_tlU" },
-      { name: "keywords", content: "Saurav Kumar, Saurav Kumar portfolio, skumar space portfolio, skumar.space, full stack developer, React, Next.js, Node.js, engineering the unseen" },
-      { property: "og:title", content: "Saurav Kumar Portfolio | skumar.space" },
-      { property: "og:description", content: "Saurav Kumar portfolio (skumar.space) — full stack web developer. React, Next.js, Node.js and modern web systems." },
+      { name: "keywords", content: "Saurabh Kumar, Saurabh Kumar portfolio, skumar space portfolio, skumar.space, full stack developer, React, Next.js, Node.js, engineering the unseen" },
+      { property: "og:title", content: "Saurabh Kumar Portfolio | skumar.space" },
+      { property: "og:description", content: "Saurabh Kumar portfolio (skumar.space). Full stack web developer building fast, reliable web apps with React, Angular, Next.js, Node.js, and AI integrations." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: siteUrl },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Saurav Kumar Portfolio | skumar.space" },
-      { name: "twitter:description", content: "Saurav Kumar portfolio (skumar.space) — full stack web developer. React, Next.js, Node.js and modern web systems." },
+      { name: "twitter:title", content: "Saurabh Kumar Portfolio | skumar.space" },
+      { name: "twitter:description", content: "Saurabh Kumar portfolio (skumar.space). Full stack web developer building fast, reliable web apps with React, Angular, Next.js, Node.js, and AI integrations." },
       { property: "og:image", content: ogImageUrl },
       { property: "og:image:type", content: "image/png" },
-      { property: "og:image:alt", content: "Saurav Kumar portfolio hero artwork" },
+      { property: "og:image:alt", content: "Saurabh Kumar portfolio hero artwork" },
       { name: "twitter:image", content: ogImageUrl },
-      { name: "twitter:image:alt", content: "Saurav Kumar portfolio hero artwork" },
+      { name: "twitter:image:alt", content: "Saurabh Kumar portfolio hero artwork" },
     ],
     links: [
-      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "icon", href: "/assets/sk%20Image.jpg", type: "image/jpeg" },
       { rel: "stylesheet", href: appCss },
       { rel: "canonical", href: siteUrl },
     ],
