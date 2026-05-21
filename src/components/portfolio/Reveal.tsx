@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, type ReactNode } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -14,15 +14,23 @@ interface Props {
 
 export default function Reveal({ children, className = "", delay = 0, y = 40, as: Tag = "div" }: Props) {
   const ref = useRef<HTMLElement>(null);
+  const lowPower = useMemo(() => {
+    if (typeof window === "undefined") return false;
+    const nav = navigator as Navigator & { deviceMemory?: number };
+    const lowMemory = typeof nav.deviceMemory === "number" && nav.deviceMemory <= 4;
+    const lowCores = typeof navigator.hardwareConcurrency === "number" && navigator.hardwareConcurrency <= 4;
+    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+    return lowMemory || lowCores || reduceMotion;
+  }, []);
 
   useEffect(() => {
     if (!ref.current) return;
     const el = ref.current;
-    gsap.set(el, { opacity: 0, y, filter: "blur(8px)" });
+    gsap.set(el, { opacity: 0, y, filter: lowPower ? "none" : "blur(8px)" });
     const tween = gsap.to(el, {
       opacity: 1,
       y: 0,
-      filter: "blur(0px)",
+      ...(lowPower ? {} : { filter: "blur(0px)" }),
       duration: 1.1,
       delay,
       ease: "power3.out",
@@ -32,7 +40,7 @@ export default function Reveal({ children, className = "", delay = 0, y = 40, as
       tween.scrollTrigger?.kill();
       tween.kill();
     };
-  }, [delay, y]);
+  }, [delay, y, lowPower]);
 
   return <Tag ref={ref as any} className={className}>{children}</Tag>;
 }

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TextScramble from "../TextScramble";
@@ -19,6 +19,14 @@ export default function HeroSection() {
   const marqueeRef = useRef<HTMLDivElement>(null);
   const floatIconsRef = useRef<HTMLDivElement>(null);
   const setIntensity = useSceneStore((s) => s.setIntensity);
+  const lowPower = useMemo(() => {
+    if (typeof window === "undefined") return false;
+    const nav = navigator as Navigator & { deviceMemory?: number };
+    const lowMemory = typeof nav.deviceMemory === "number" && nav.deviceMemory <= 4;
+    const lowCores = typeof navigator.hardwareConcurrency === "number" && navigator.hardwareConcurrency <= 4;
+    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+    return lowMemory || lowCores || reduceMotion;
+  }, []);
 
   const QUOTES = [
     "ENGINEERING THE UNSEEN",
@@ -63,15 +71,19 @@ export default function HeroSection() {
   // Intro entrance
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.set([markerRef.current, subRef.current, metaRef.current, scrollRef.current], { opacity: 0, y: 30, filter: "blur(12px)" });
+      gsap.set([markerRef.current, subRef.current, metaRef.current, scrollRef.current], {
+        opacity: 0,
+        y: 30,
+        filter: lowPower ? "none" : "blur(12px)",
+      });
       gsap.set(".hero-line", { yPercent: 110, opacity: 0, skewY: 6 });
       gsap.set(".hero-char", { opacity: 0, y: 40, rotateX: -90 });
 
       const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-      tl.to(markerRef.current, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9 })
+      tl.to(markerRef.current, { opacity: 1, y: 0, ...(lowPower ? {} : { filter: "blur(0px)" }), duration: 0.9 })
         .to(".hero-line", { yPercent: 0, opacity: 1, skewY: 0, duration: 1.4, stagger: 0.12 }, "-=0.5")
         .to(".hero-char", { opacity: 1, y: 0, rotateX: 0, duration: 0.6, stagger: { each: 0.018, from: "random" }, ease: "back.out(1.4)" }, "-=1.0")
-        .to([subRef.current, metaRef.current, scrollRef.current], { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, stagger: 0.15 }, "-=0.6");
+        .to([subRef.current, metaRef.current, scrollRef.current], { opacity: 1, y: 0, ...(lowPower ? {} : { filter: "blur(0px)" }), duration: 1, stagger: 0.15 }, "-=0.6");
 
       // Floating orbs continuous drift
       const orbs = orbsRef.current?.querySelectorAll(".hero-orb");
@@ -92,7 +104,7 @@ export default function HeroSection() {
       }
     }, sectionRef);
     return () => ctx.revert();
-  }, []);
+  }, [lowPower]);
 
   // Scroll-driven parallax + sphere intensity
   useEffect(() => {
@@ -123,7 +135,11 @@ export default function HeroSection() {
     const el = headlineRef.current;
     const spot = spotlightRef.current;
     if (!el) return;
-    const onMove = (e: MouseEvent) => {
+    let raf = 0;
+    let lastEvent: MouseEvent | null = null;
+    const update = () => {
+      if (!lastEvent) return;
+      const e = lastEvent;
       const r = el.getBoundingClientRect();
       const x = (e.clientX - (r.left + r.width / 2)) / r.width;
       const y = (e.clientY - (r.top + r.height / 2)) / r.height;
@@ -137,9 +153,17 @@ export default function HeroSection() {
           ease: "power3.out",
         });
       }
+      raf = 0;
     };
-    window.addEventListener("mousemove", onMove);
-    return () => window.removeEventListener("mousemove", onMove);
+    const onMove = (e: MouseEvent) => {
+      lastEvent = e;
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    window.addEventListener("mousemove", onMove, { passive: true });
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   const renderChars = (text: string, charClass = "") =>

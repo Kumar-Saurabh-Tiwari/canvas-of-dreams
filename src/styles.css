@@ -81,6 +81,10 @@
     100% { background-position: 0% 50%; }
   }
 
+  .low-power body {
+    animation-duration: 26s;
+  }
+
   @keyframes creative-cycle {
     0%, 15%, 100% { 
       opacity: 0; 
@@ -247,6 +251,10 @@
     animation: shimmer 3s linear infinite, vibrate 0.4s linear infinite;
   }
 
+  .low-power .skumar-ai-accent {
+    animation: shimmer 5s linear infinite;
+  }
+
   .skumar-ai-label {
     font-weight: 700;
     color: #1f2937;
@@ -334,6 +342,11 @@
     z-index: 1;
     animation: grain 8s steps(8) infinite;
   }
+
+  .low-power .grain::before {
+    opacity: 0.08;
+    animation-duration: 16s;
+  }
   @keyframes grain {
     0%,100% { transform: translate(0,0); }
     10% { transform: translate(-5%,-5%); }
@@ -357,6 +370,9 @@
     animation-iteration-count: infinite;
     animation-fill-mode: both;
     will-change: opacity, transform;
+  }
+  .low-power .hero-bg-layer {
+    animation-duration: 28s;
   }
   .hero-bg-a {
     animation-name: hero-bg-a;

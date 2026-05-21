@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useEffect } from "react";
 import {
   Outlet,
   Link,
@@ -117,6 +118,26 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const nav = navigator as Navigator & { deviceMemory?: number };
+    const lowMemory = typeof nav.deviceMemory === "number" && nav.deviceMemory <= 4;
+    const lowCores = typeof navigator.hardwareConcurrency === "number" && navigator.hardwareConcurrency <= 4;
+    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+    const lowPower = lowMemory || lowCores;
+    if (lowPower) {
+      document.documentElement.classList.add("low-power");
+      document.body.classList.add("low-power");
+    }
+    if (reduceMotion) {
+      document.documentElement.classList.add("reduced-motion");
+      document.body.classList.add("reduced-motion");
+    }
+    return () => {
+      document.documentElement.classList.remove("low-power", "reduced-motion");
+      document.body.classList.remove("low-power", "reduced-motion");
+    };
+  }, []);
   return (
     <QueryClientProvider client={queryClient}>
       <ClientOnly fallback={null}>
