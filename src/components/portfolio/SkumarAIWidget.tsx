@@ -220,6 +220,24 @@ function buildAnswer(question: string, kb: KnowledgeBase | null) {
       terms: ["name", "who", "about", "bio", "profile", "intro"],
       reply: () => `${kb.person.displayName} - ${kb.person.title}. ${kb.person.tagline}`,
     },
+    {
+      key: "quotes",
+      terms: ["quote", "quotes", "motto", "philosophy", "mantra", "engineering", "architecting"],
+      reply: () => {
+        if (!kb.quotes?.length) return "Quotes are not listed yet.";
+        return `Quotes:\n${kb.quotes.map((q) => `- ${q}`).join("\n")}`;
+      },
+    },
+    {
+      key: "site",
+      terms: ["site", "portfolio", "website", "web", "visit", "link", "url"],
+      reply: () => `Visit: ${kb.person.site}`,
+    },
+    {
+      key: "tagline",
+      terms: ["tagline", "motto", "mission"],
+      reply: () => kb.person.tagline,
+    },
   ];
 
   const scored = intents
@@ -250,9 +268,17 @@ function buildProfileSummary(kb: KnowledgeBase | null) {
     `Location: ${kb.person.location ?? "India"}.`,
     `Highlights: ${kb.highlights.years} years, ${kb.highlights.shipped} shipped, stack ${kb.highlights.stack}.`,
     `Skills: ${formatList(kb.skills, 12)}.`,
+    `Core Quotes: ${kb.quotes?.slice(0, 3).join(" | ")}.`,
     kb.hobbies?.length ? `Hobbies: ${kb.hobbies.join(", ")}.` : "",
     `Services: ${kb.services.map((s) => s.title).join(", ")}.`,
+    kb.services.length
+      ? `Services details:\n${kb.services.map((s) => `- ${s.title}: ${s.summary} (Stack: ${s.stack.join(", ")})`).join("\n")}`
+      : "",
     `Projects: ${kb.projects.slice(0, 5).map((p) => p.title).join(", ")}.`,
+    kb.projects.length
+      ? `Recent work:\n${kb.projects.map((p) => `- ${p.title} (${p.year}) - ${p.stack}`).join("\n")}`
+      : "",
+    `Experience:\n${kb.experience.map((x) => `- ${x.role} @ ${x.company} (${x.range}): ${x.summary}`).join("\n")}`,
     `Contact: ${kb.contact.email} | ${kb.contact.github} | ${kb.contact.linkedin}.`,
     kb.contact.mobile ? `Mobile: ${kb.contact.mobile}.` : "",
     kb.contact.twitter ? `Twitter: ${kb.contact.twitter}.` : "",
@@ -264,6 +290,9 @@ function buildProfileSummary(kb: KnowledgeBase | null) {
       : "",
     kb.systemSpecifications?.note ?? "",
     kb.personalNotes?.[0] ?? "",
+    kb.education
+      ? `Education: ${kb.education.map((e) => `${e.degree} in ${e.focus} from ${e.institution} (${e.year})`).join("; ")}.`
+      : "",
   ].filter(Boolean);
 
   return lines.join("\n");

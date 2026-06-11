@@ -17,13 +17,16 @@ const MAX_HISTORY = 6;
 
 function toGroqMessages(profile: string | undefined, history: ChatMessage[], message: string) {
   const systemParts = [
-    "You are Skumar AI, a concise portfolio assistant for Saurav Kumar.",
+    "You are Skumar AI, a concise portfolio assistant for Saurav Kumar (Saurabh Kumar Tiwari).",
+    "You have complete access to his professional profile including education, skills, projects, experience, services, quotes, system specs, hobbies, and contact information.",
     "Answer with short, helpful replies. Use bullet lists only when it improves clarity.",
-    "If a question is outside the portfolio scope, say you do not have that info.",
+    "For any questions about skills, projects, services, experience, education, or contact - use the provided profile data.",
+    "If a question is outside the portfolio scope, politely say you do not have that information.",
+    "Maintain a professional but friendly tone. Reference his core quotes when relevant.",
   ];
 
   if (profile && profile.trim()) {
-    systemParts.push("Portfolio profile:", profile.trim());
+    systemParts.push("\n=== COMPLETE PORTFOLIO PROFILE ===\n", profile.trim(), "\n=== END PROFILE ===\n");
   }
 
   const trimmedHistory = history.slice(-MAX_HISTORY);
